@@ -1,0 +1,18 @@
+PODS:
+  - Koloda (4.3.1):
+    - pop (~> 1.0)
+  - pop (1.0.10)
+  - ZLSwipeableViewSwift (0.0.7)
+
+DEPENDENCIES:
+  - Koloda
+  - ZLSwipeableViewSwift
+
+SPEC CHECKSUMS:
+  Koloda: 0d39b2aa188ccd1fac48d752acaf9802e683c625
+  pop: 82ca6b068ce9278fd350fd9dd09482a0ce9492e6
+  ZLSwipeableViewSwift: f5ee94c2e4220f900f5a129118af2aef23062900
+
+PODFILE CHECKSUM: d73cae6cac19f9098fd73512bab731788f1a92bf
+
+COCOAPODS: 1.3.1
