@@ -39,6 +39,36 @@
             </objects>
             <point key="canvasLocation" x="1457" y="33"/>
         </scene>
+        <!--First Library Tinder View Controller-->
+        <scene sceneID="nR4-Nh-OHH">
+            <objects>
+                <viewController id="2V8-ER-KzX" customClass="FirstLibraryTinderViewController" customModule="TinderUISamples" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="18j-JU-70l">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="oAZ-nc-goZ"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ycR-tj-Tky" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2177" y="33"/>
+        </scene>
+        <!--Second Library Tinder View Controller-->
+        <scene sceneID="8n0-JK-rad">
+            <objects>
+                <viewController id="2hw-yF-2SC" customClass="SecondLibraryTinderViewController" customModule="TinderUISamples" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="e9H-ty-hua">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="nYu-24-iBn"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rAF-bS-De3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2177" y="758"/>
+        </scene>
         <!--Pure View Tinder View Controller-->
         <scene sceneID="vEM-av-OkP">
             <objects>
