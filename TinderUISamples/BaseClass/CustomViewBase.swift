@@ -60,5 +60,12 @@ class CustomViewBase: UIView {
         )
         addConstraints(contentViewConstraintH)
         addConstraints(contentViewConstraintV)
+
+        initWith()
     }
+    
+    // MARK: - Function
+
+    // このメソッドは継承先のカスタムビューのInitialize時に使用する
+    func initWith() {}
 }

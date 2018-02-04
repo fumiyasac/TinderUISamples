@@ -21,6 +21,12 @@
 		DE21892A201E07CA00B0E5C0 /* CustomViewBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE218929201E07CA00B0E5C0 /* CustomViewBase.swift */; };
 		DE21892E201E10F600B0E5C0 /* FirstLibraryTinderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE21892D201E10F600B0E5C0 /* FirstLibraryTinderViewController.swift */; };
 		DE218930201E110B00B0E5C0 /* SecondLibraryTinderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE21892F201E110B00B0E5C0 /* SecondLibraryTinderViewController.swift */; };
+		DE2189352026092800B0E5C0 /* TinderCardSetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE2189342026092800B0E5C0 /* TinderCardSetView.xib */; };
+		DE2189372026096200B0E5C0 /* TinderCardSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2189362026096200B0E5C0 /* TinderCardSetView.swift */; };
+		DE21893920262C5100B0E5C0 /* TinderCardSetViewSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE21893820262C5100B0E5C0 /* TinderCardSetViewSetting.swift */; };
+		DE21893B20262E1500B0E5C0 /* TinderCardSetViewDefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE21893A20262E1500B0E5C0 /* TinderCardSetViewDefaultSettings.swift */; };
+		DE21893D20262EA600B0E5C0 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE21893C20262EA600B0E5C0 /* UIColorExtension.swift */; };
+		DE21893F2027000F00B0E5C0 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE21893E2027000F00B0E5C0 /* IntExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +68,12 @@
 		DE218929201E07CA00B0E5C0 /* CustomViewBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewBase.swift; sourceTree = "<group>"; };
 		DE21892D201E10F600B0E5C0 /* FirstLibraryTinderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLibraryTinderViewController.swift; sourceTree = "<group>"; };
 		DE21892F201E110B00B0E5C0 /* SecondLibraryTinderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondLibraryTinderViewController.swift; sourceTree = "<group>"; };
+		DE2189342026092800B0E5C0 /* TinderCardSetView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TinderCardSetView.xib; sourceTree = "<group>"; };
+		DE2189362026096200B0E5C0 /* TinderCardSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinderCardSetView.swift; sourceTree = "<group>"; };
+		DE21893820262C5100B0E5C0 /* TinderCardSetViewSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinderCardSetViewSetting.swift; sourceTree = "<group>"; };
+		DE21893A20262E1500B0E5C0 /* TinderCardSetViewDefaultSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinderCardSetViewDefaultSettings.swift; sourceTree = "<group>"; };
+		DE21893C20262EA600B0E5C0 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		DE21893E2027000F00B0E5C0 /* IntExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
 		E4A61A47756FDAF51B9B0B8A /* Pods-TinderUISamples.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinderUISamples.release.xcconfig"; path = "Pods/Target Support Files/Pods-TinderUISamples/Pods-TinderUISamples.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -187,6 +199,8 @@
 		DE218925201E073C00B0E5C0 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				DE21893E2027000F00B0E5C0 /* IntExtension.swift */,
+				DE21893C20262EA600B0E5C0 /* UIColorExtension.swift */,
 				DE218926201E075000B0E5C0 /* UIImageExtension.swift */,
 			);
 			path = Extension;
@@ -203,8 +217,28 @@
 		DE218931201E111500B0E5C0 /* ViewComponents */ = {
 			isa = PBXGroup;
 			children = (
+				DE218932201E1B1300B0E5C0 /* PureViewTinder */,
 			);
 			path = ViewComponents;
+			sourceTree = "<group>";
+		};
+		DE218932201E1B1300B0E5C0 /* PureViewTinder */ = {
+			isa = PBXGroup;
+			children = (
+				DE2189332026085500B0E5C0 /* TinderCardSetView */,
+			);
+			path = PureViewTinder;
+			sourceTree = "<group>";
+		};
+		DE2189332026085500B0E5C0 /* TinderCardSetView */ = {
+			isa = PBXGroup;
+			children = (
+				DE2189362026096200B0E5C0 /* TinderCardSetView.swift */,
+				DE2189342026092800B0E5C0 /* TinderCardSetView.xib */,
+				DE21893A20262E1500B0E5C0 /* TinderCardSetViewDefaultSettings.swift */,
+				DE21893820262C5100B0E5C0 /* TinderCardSetViewSetting.swift */,
+			);
+			path = TinderCardSetView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -318,6 +352,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE2188FB2018146F00B0E5C0 /* LaunchScreen.storyboard in Resources */,
+				DE2189352026092800B0E5C0 /* TinderCardSetView.xib in Resources */,
 				DE2188F82018146F00B0E5C0 /* Assets.xcassets in Resources */,
 				DE2188F62018146F00B0E5C0 /* Main.storyboard in Resources */,
 			);
@@ -402,14 +437,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE2189372026096200B0E5C0 /* TinderCardSetView.swift in Sources */,
 				DE218930201E110B00B0E5C0 /* SecondLibraryTinderViewController.swift in Sources */,
 				DE2189202019F19E00B0E5C0 /* CollectionViewTinderViewController.swift in Sources */,
 				DE218922201E06C700B0E5C0 /* PureViewTinderViewController.swift in Sources */,
 				DE21892E201E10F600B0E5C0 /* FirstLibraryTinderViewController.swift in Sources */,
 				DE2188F32018146F00B0E5C0 /* ViewController.swift in Sources */,
+				DE21893B20262E1500B0E5C0 /* TinderCardSetViewDefaultSettings.swift in Sources */,
+				DE21893F2027000F00B0E5C0 /* IntExtension.swift in Sources */,
 				DE218927201E075000B0E5C0 /* UIImageExtension.swift in Sources */,
 				DE21892A201E07CA00B0E5C0 /* CustomViewBase.swift in Sources */,
+				DE21893920262C5100B0E5C0 /* TinderCardSetViewSetting.swift in Sources */,
 				DE2188F12018146F00B0E5C0 /* AppDelegate.swift in Sources */,
+				DE21893D20262EA600B0E5C0 /* UIColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

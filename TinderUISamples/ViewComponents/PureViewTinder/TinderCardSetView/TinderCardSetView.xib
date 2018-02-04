@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="HiraginoKakuGothic.ttc">
+            <string>HiraginoSans-W3</string>
+            <string>HiraginoSans-W6</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TinderCardSetView" customModule="TinderUISamples" customModuleProvider="target">
+            <connections>
+                <outlet property="dateLabel" destination="Gaz-we-jCn" id="7Uw-8f-dtD"/>
+                <outlet property="descriptionLabel" destination="FOf-dT-Lre" id="Lw7-7r-uas"/>
+                <outlet property="readmoreButton" destination="bRC-Yw-0F2" id="bah-4k-IAb"/>
+                <outlet property="remarkLabel" destination="1UY-eX-G6U" id="oye-Fe-c5h"/>
+                <outlet property="thumbnailImageView" destination="gO9-Wr-Ui9" id="FTn-Ea-uRy"/>
+                <outlet property="titleLabel" destination="LEn-8d-cVU" id="guG-G8-5iY"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="320"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="タイトルが入ります。" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LEn-8d-cVU">
+                    <rect key="frame" x="16" y="16" width="268" height="13"/>
+                    <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="13"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2018/00/00" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gaz-we-jCn">
+                    <rect key="frame" x="16" y="45" width="74.5" height="12"/>
+                    <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="12"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="新着！" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1UY-eX-G6U">
+                    <rect key="frame" x="220" y="45" width="64" height="16"/>
+                    <color key="backgroundColor" red="1" green="0.38431372549999998" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="64" id="BS6-mm-Krt"/>
+                        <constraint firstAttribute="height" constant="16" id="N5c-Ad-biS"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="10"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gO9-Wr-Ui9">
+                    <rect key="frame" x="15" y="79" width="270" height="180"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="gO9-Wr-Ui9" secondAttribute="height" multiplier="3:2" id="iFt-hb-77G"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FOf-dT-Lre">
+                    <rect key="frame" x="16" y="274" width="268" height="11"/>
+                    <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="11"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRC-Yw-0F2">
+                    <rect key="frame" x="224" y="290" width="60" height="25"/>
+                    <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="12"/>
+                    <state key="normal" title="続きを読む">
+                        <color key="titleColor" red="0.99215686274509807" green="0.66666666669999997" blue="0.0039215686269999999" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="bRC-Yw-0F2" secondAttribute="bottom" constant="5" id="0Iz-xg-zdz"/>
+                <constraint firstItem="bRC-Yw-0F2" firstAttribute="top" secondItem="FOf-dT-Lre" secondAttribute="bottom" constant="5" id="0Zu-1z-5W2"/>
+                <constraint firstItem="Gaz-we-jCn" firstAttribute="top" secondItem="LEn-8d-cVU" secondAttribute="bottom" constant="16" id="23S-Em-ssN"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="LEn-8d-cVU" secondAttribute="trailing" constant="16" id="8Nf-ic-xoI"/>
+                <constraint firstItem="gO9-Wr-Ui9" firstAttribute="top" secondItem="1UY-eX-G6U" secondAttribute="bottom" constant="18" id="9Ag-lb-kwz"/>
+                <constraint firstItem="FOf-dT-Lre" firstAttribute="top" secondItem="gO9-Wr-Ui9" secondAttribute="bottom" constant="15" id="HDh-bU-ll5"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="FOf-dT-Lre" secondAttribute="trailing" constant="16" id="IdG-kh-Jkc"/>
+                <constraint firstItem="Gaz-we-jCn" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="QCF-Cf-fd5"/>
+                <constraint firstItem="FOf-dT-Lre" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="XIi-gM-Pnm"/>
+                <constraint firstItem="LEn-8d-cVU" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="16" id="ZoA-2h-YDh"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="bRC-Yw-0F2" secondAttribute="trailing" constant="16" id="cgE-l0-ccF"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="gO9-Wr-Ui9" secondAttribute="trailing" constant="15" id="htf-aC-Qtl"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="1UY-eX-G6U" secondAttribute="trailing" constant="16" id="kmh-GS-C4q"/>
+                <constraint firstItem="1UY-eX-G6U" firstAttribute="top" secondItem="LEn-8d-cVU" secondAttribute="bottom" constant="16" id="mzP-Wf-Fje"/>
+                <constraint firstItem="gO9-Wr-Ui9" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="15" id="w40-TW-F6q"/>
+                <constraint firstItem="LEn-8d-cVU" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="zs2-BS-AiN"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+        </view>
+    </objects>
+</document>
