@@ -9,11 +9,7 @@
 import Foundation
 import UIKit
 
-struct TinderCardSetViewDefaultSettings {
-
-    // MARK: - Initializer
-
-    init() {}
+class TinderCardSetViewDefaultSettings: TinderCardSetViewSetting {
 
     // MARK: - Properties
 
@@ -25,33 +21,41 @@ struct TinderCardSetViewDefaultSettings {
     private let DEFAULT_DESCRIPTION_FONT_SIZE      = 11.0
     private let DEFAULT_READ_MORE_BUTTON_FONT_SIZE = 12.0
 
-    static let cardSetViewWidth: CGFloat = 300
+    // MARK: - TinderCardSetViewSettingプロトコルで定義した変数
+    
+    static var cardSetViewWidth: CGFloat = 300
 
-    static let cardSetViewHeight: CGFloat = 320
+    static var cardSetViewHeight: CGFloat = 320
 
-    static let defaultAlpha: CGFloat = 1.0
+    static var backgroundCornerRadius: CGFloat = 0.0
 
-    static let hoverAlpha: CGFloat = 0.85
+    static var backgroundBorderWidth: CGFloat = 0.75
 
-    static let backgroundCornerRadius: CGFloat = 5.0
+    static var backgroundBorderColor: CGColor = UIColor.init(code: "#DDDDDD").cgColor
 
-    static let backgroundBorderColor: CGColor = UIColor.init(code: "#DDDDDD").cgColor
+    static var backgroundShadowRadius: CGFloat = 3
 
-    static let backgroundShadowRadius: CGFloat = 3
+    static var backgroundShadowOpacity: Float = 0.5
 
-    static let backgroundShadowOpacity: CGFloat = 0.4
+    static var backgroundShadowOffset: CGSize = CGSize(width: 0.75, height: 1.75)
 
-    static let backgroundShadowOffset: CGSize = CGSize(width: 0.5, height: 3)
+    static var backgroundShadowColor: CGColor = UIColor.init(code: "#999999").cgColor
 
-    static let backgroundShadowColor: CGColor = UIColor.init(code: "#DDDDDD").cgColor
+    static var backgroundColor: UIColor = UIColor.init(code: "#FFFFFF")
 
-    static let backgroundColor: UIColor = UIColor.init(code: "#FFFFFF")
+    static var remarkLabelBackgroundColor: UIColor = UIColor.init(code: "#FF6222")
 
-    static let remarkLabelBackgroundColor: UIColor = UIColor.init(code: "#FF6222")
+    static var remarkLabelFontColor: UIColor = UIColor.init(code: "#FFFFFF")
 
-    static let remarkLabelFontColor: UIColor = UIColor.init(code: "#FFFFFF")
+    static var readMoreButtonBackgroundColor: UIColor = UIColor.clear
 
-    static let readMoreButtonBackgroundColor: UIColor = UIColor.clear
+    static var readMoreButtonFontColor: UIColor = UIColor.init(code: "#FDAA01")
 
-    static let readMoreButtonFontColor: UIColor = UIColor.init(code: "#FDAA01")
+    static var durationOfDragging: TimeInterval = 0.26
+
+    static var startDraggingAlpha: CGFloat = 0.72
+    
+    static var stopDraggingAlpha: CGFloat = 1.00
+
+    static var maxScaleOfDragging: CGFloat = 0.96
 }

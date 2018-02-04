@@ -42,10 +42,11 @@ class TinderCardSetView: CustomViewBase {
     private var xPositionFromCenter: CGFloat = 0.0
     private var yPositionFromCenter: CGFloat = 0.0
 
-    private let durationOfDragging: TimeInterval = 0.26
-    private let startDraggingAlpha: CGFloat = 0.72
-    private let stopDraggingAlpha: CGFloat  = 1.00
-    private let maxScaleOfDragging: CGFloat = 0.96
+    private let durationOfDragging: TimeInterval = TinderCardSetViewDefaultSettings.durationOfDragging
+
+    private let startDraggingAlpha: CGFloat = TinderCardSetViewDefaultSettings.startDraggingAlpha
+    private let stopDraggingAlpha: CGFloat  = TinderCardSetViewDefaultSettings.stopDraggingAlpha
+    private let maxScaleOfDragging: CGFloat = TinderCardSetViewDefaultSettings.maxScaleOfDragging
 
     var readmoreButtonAction: (() -> ())?
 
@@ -53,6 +54,8 @@ class TinderCardSetView: CustomViewBase {
 
     override func initWith() {
         setupTinderCardSetView()
+        setupPanGestureRecognizer()
+        setupSlopeAndIntercept()
     }
 
     // MARK: - Function
@@ -143,15 +146,18 @@ class TinderCardSetView: CustomViewBase {
 
     // このViewに対する初期設定を行う
     private func setupTinderCardSetView() {
+        self.clipsToBounds   = true
+        self.backgroundColor = TinderCardSetViewDefaultSettings.backgroundColor
 
-        // Viewに関するパラメーターの設定
-        self.clipsToBounds = true
-
-        // UIPanGestureRecognizerの付与を行う
-        setupPanGestureRecognizer()
-
-        // 傾きと初期配置位置の付与を行う
-        setupSlopeAndIntercept()
+        // MEMO: この部分では背景のViewに関する設定のみ実装
+        self.layer.masksToBounds = false
+        self.layer.borderColor   = TinderCardSetViewDefaultSettings.backgroundBorderColor
+        self.layer.borderWidth   = TinderCardSetViewDefaultSettings.backgroundBorderWidth
+        self.layer.cornerRadius  = TinderCardSetViewDefaultSettings.backgroundCornerRadius
+        self.layer.shadowRadius  = TinderCardSetViewDefaultSettings.backgroundShadowRadius
+        self.layer.shadowOpacity = TinderCardSetViewDefaultSettings.backgroundShadowOpacity
+        self.layer.shadowOffset  = TinderCardSetViewDefaultSettings.backgroundShadowOffset
+        self.layer.shadowColor   = TinderCardSetViewDefaultSettings.backgroundBorderColor
     }
 
     // このViewのUIPanGestureRecognizerの付与を行う

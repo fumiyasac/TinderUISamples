@@ -75,7 +75,7 @@
                     </state>
                 </button>
             </subviews>
-            <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="bRC-Yw-0F2" secondAttribute="bottom" constant="5" id="0Iz-xg-zdz"/>
                 <constraint firstItem="bRC-Yw-0F2" firstAttribute="top" secondItem="FOf-dT-Lre" secondAttribute="bottom" constant="5" id="0Zu-1z-5W2"/>
