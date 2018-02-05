@@ -51,6 +51,12 @@ class TinderCardSetViewDefaultSettings: TinderCardSetViewSetting {
 
     static var readMoreButtonFontColor: UIColor = UIColor.init(code: "#FDAA01")
 
+    static var beforeInitializeScale: CGFloat = 1.00
+
+    static var afterInitializeScale: CGFloat = 0.86
+
+    static var durationOfInitialize: TimeInterval = 0.46
+
     static var durationOfDragging: TimeInterval = 0.26
 
     static var startDraggingAlpha: CGFloat = 0.72
@@ -59,7 +65,7 @@ class TinderCardSetViewDefaultSettings: TinderCardSetViewSetting {
 
     static var maxScaleOfDragging: CGFloat = 0.96
 
-    static var swipeLeftLimitRatio: CGFloat = -0.78
+    static var swipeLeftLimitRatio: CGFloat = -0.68
 
-    static var swipeRightLimitRatio: CGFloat = 0.78
+    static var swipeRightLimitRatio: CGFloat = 0.68
 }

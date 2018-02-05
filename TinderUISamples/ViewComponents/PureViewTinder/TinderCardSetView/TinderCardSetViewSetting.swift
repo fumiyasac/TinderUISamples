@@ -55,6 +55,15 @@ protocol TinderCardSetViewSetting {
     // 続きを読むフォント色
     static var readMoreButtonFontColor: UIColor { get }
 
+    // 初期化表示前の拡大縮小比
+    static var beforeInitializeScale: CGFloat { get }
+
+    // 初期化表示後の拡大縮小比
+    static var afterInitializeScale: CGFloat { get }
+
+    // 初期化表示時のアニメーションの時間
+    static var durationOfInitialize: TimeInterval { get }
+
     // ドラッグ開始時・終了時に実行されるアニメーションの時間
     static var durationOfDragging: TimeInterval { get }
 

@@ -18,14 +18,14 @@ import UIKit
 
 protocol TinderCardSetDelegate: NSObjectProtocol {
 
-    //
+    // 左側への移動割合のしきい値を超えた場合に実行されるアクション
     func swipedLeftPosition(_ cardView: TinderCardSetView)
 
-    //
+    // 右側への移動割合のしきい値を超えた場合に実行されるアクション
     func swipedRightPosition(_ cardView: TinderCardSetView)
 
-    //
-    func updatePosition(_ cardView: TinderCardSetView, withDistance distance: CGFloat)
+    // 位置の変化が生じた際に実行されるアクション
+    func updatePosition(_ cardView: TinderCardSetView, centerX: CGFloat, centerY: CGFloat)
 }
 
 class TinderCardSetView: CustomViewBase {
@@ -58,13 +58,22 @@ class TinderCardSetView: CustomViewBase {
     private var currentMovePercentFromCenter: CGFloat = 0.0
 
     // TinderCardSetViewDefaultSettingsで設定した値を反映するための定数値
-    private let durationOfDragging: TimeInterval = TinderCardSetViewDefaultSettings.durationOfDragging
-    private let startDraggingAlpha: CGFloat      = TinderCardSetViewDefaultSettings.startDraggingAlpha
-    private let stopDraggingAlpha: CGFloat       = TinderCardSetViewDefaultSettings.stopDraggingAlpha
-    private let maxScaleOfDragging: CGFloat      = TinderCardSetViewDefaultSettings.maxScaleOfDragging
-    private let swipeLeftLimitRatio: CGFloat     = TinderCardSetViewDefaultSettings.swipeLeftLimitRatio
-    private let swipeRightLimitRatio: CGFloat    = TinderCardSetViewDefaultSettings.swipeRightLimitRatio
+    private let durationOfInitialize: TimeInterval = TinderCardSetViewDefaultSettings.durationOfInitialize
+    private let durationOfDragging: TimeInterval   = TinderCardSetViewDefaultSettings.durationOfDragging
 
+    private let startDraggingAlpha: CGFloat = TinderCardSetViewDefaultSettings.startDraggingAlpha
+    private let stopDraggingAlpha: CGFloat  = TinderCardSetViewDefaultSettings.stopDraggingAlpha
+    private let maxScaleOfDragging: CGFloat = TinderCardSetViewDefaultSettings.maxScaleOfDragging
+
+    private let swipeLeftLimitRatio: CGFloat  = TinderCardSetViewDefaultSettings.swipeLeftLimitRatio
+    private let swipeRightLimitRatio: CGFloat = TinderCardSetViewDefaultSettings.swipeRightLimitRatio
+
+    private let beforeInitializeScale: CGFloat = TinderCardSetViewDefaultSettings.beforeInitializeScale
+    private let afterInitializeScale: CGFloat  = TinderCardSetViewDefaultSettings.afterInitializeScale
+
+    // TinderCardSetDelegateのインスタンス宣言
+    weak var delegate: TinderCardSetDelegate?
+    
     // 「続きを読む」ボタンタップ時に実行されるクロージャー
     var readmoreButtonAction: (() -> ())?
 
@@ -103,6 +112,8 @@ class TinderCardSetView: CustomViewBase {
                 x: self.center.x - xPositionFromCenter,
                 y: self.center.y - yPositionFromCenter
             )
+            print("beganCenterX", originalPoint.x)
+            print("beganCenterY", originalPoint.y)
 
             // ドラッグ処理開始時のViewのアルファ値を変更する
             UIView.animate(withDuration: durationOfDragging, delay: 0.0, options: [.curveEaseInOut], animations: {
@@ -114,17 +125,21 @@ class TinderCardSetView: CustomViewBase {
         // ドラッグ最中の処理
         case .changed:
 
+            // 動かした位置の中心位置を取得する
+            let newCenterX = originalPoint.x + xPositionFromCenter
+            let newCenterY = originalPoint.y + yPositionFromCenter
+
             // Viewの中心位置を更新して動きをつける
-            self.center = CGPoint(
-                x: originalPoint.x + xPositionFromCenter,
-                y: originalPoint.y + yPositionFromCenter
-            )
+            self.center = CGPoint(x: newCenterX, y: newCenterY)
+
+            // DelegeteメソッドのupdatePositionを実行する
+            //self.delegate?.updatePosition(self, centerX: newCenterX, centerY: newCenterY)
 
             // 中心位置からのX軸方向へ何パーセント移動したか（移動割合）を計算する
             currentMovePercentFromCenter = min(xPositionFromCenter / UIScreen.main.bounds.size.width, 1)
 
             // Debug.
-            print(currentMovePercentFromCenter)
+            //print(currentMovePercentFromCenter)
 
             // 上記で算出した移動割合から回転量を取得し、初期配置時の回転量へ加算した値でアファイン変換を適用する
             let initialRotationAngle = atan2(initialTransform.b, initialTransform.a)
@@ -140,18 +155,18 @@ class TinderCardSetView: CustomViewBase {
 
         // ドラッグ終了時の処理
         case .ended, .cancelled:
+            let whenEndedVelocity = sender.velocity(in: self)
 
-            moveOriginalPosition()
+            print("currentMovePercentFromCenter", currentMovePercentFromCenter)
+            print("whenEndedVelocity", whenEndedVelocity)
 
-            /*
             if currentMovePercentFromCenter < swipeLeftLimitRatio {
-                moveLeftInvisiblePosition()
+                moveInvisiblePosition(verocity: whenEndedVelocity, isLeft: true)
             } else if swipeRightLimitRatio < currentMovePercentFromCenter {
-                moveRightInvisiblePosition()
+                moveInvisiblePosition(verocity: whenEndedVelocity, isLeft: false)
             } else {
                 moveOriginalPosition()
             }
-            */
 
             // ドラッグ開始時の座標位置の変数をリセットする
             originalPoint = CGPoint.zero
@@ -214,25 +229,46 @@ class TinderCardSetView: CustomViewBase {
             x: initialCenterPosX + fluctuationsPosX,
             y: initialCenterPosY + fluctuationsPosY
         )
-        self.center = initialCenter
-        
+
         // 傾きのゆらぎを表現する値を設定する
-        let fluctuationsRotateAngle: CGFloat = CGFloat(Int.createRandom(range: Range(-12...12)))
-        let angle = fluctuationsRotateAngle * .pi / 180.0 * 0.1
+        let fluctuationsRotateAngle: CGFloat = CGFloat(Int.createRandom(range: Range(-6...6)))
+        let angle = fluctuationsRotateAngle * .pi / 180.0 * 0.25
         initialTransform = CGAffineTransform(rotationAngle: angle)
-        initialTransform.scaledBy(x: 1.00, y: 1.00)
-        self.transform = initialTransform
+        initialTransform.scaledBy(x: afterInitializeScale, y: afterInitializeScale)
+
+        // カードの初期配置をするアニメーションを実行する
+        moveInitialPosition()
     }
 
     // カードを初期配置する位置へ戻す
     private func moveInitialPosition() {
+
+        // 表示前のカードの位置を設定する
+        let beforeInitializePosX: CGFloat = CGFloat(-Int.createRandom(range: Range(100...300)))
+        let beforeInitializePosY: CGFloat = CGFloat(-Int.createRandom(range: Range(100...300)))
+        let beforeInitializeCenter = CGPoint(x: beforeInitializePosX, y: beforeInitializePosY)
+
+        // 表示前のカードの傾きを設定する
+        let beforeInitializeRotateAngle: CGFloat = CGFloat(Int.createRandom(range: Range(-90...90)))
+        let angle = beforeInitializeRotateAngle * .pi / 180.0
+        let beforeInitializeTransform = CGAffineTransform(rotationAngle: angle)
+        beforeInitializeTransform.scaledBy(x: beforeInitializeScale, y: beforeInitializeScale)
+
+        self.alpha = 0
+        self.center = beforeInitializeCenter
+        self.transform = beforeInitializeTransform
+
+        UIView.animate(withDuration: durationOfInitialize, animations: {
+            self.alpha = 1
+            self.center = self.initialCenter
+            self.transform = self.initialTransform
+        })
     }
 
     // カードを元の位置へ戻す
     private func moveOriginalPosition() {
 
-        // 変化させた値をリセットする
-        UIView.animate(withDuration: durationOfDragging, delay: 0.0, options: [.curveEaseInOut], animations: {
+        UIView.animate(withDuration: durationOfDragging, delay: 0.0, usingSpringWithDamping: 0.68, initialSpringVelocity: 0.0, options: [.curveEaseInOut], animations: {
 
             // ドラッグ処理終了時はViewのアルファ値を元に戻す
             self.alpha = self.stopDraggingAlpha
@@ -245,14 +281,29 @@ class TinderCardSetView: CustomViewBase {
     }
 
     // カードを左側の領域外へ動かす
-    private func moveLeftInvisiblePosition() {
+    private func moveInvisiblePosition(verocity: CGPoint, isLeft: Bool = true) {
 
-        //TODO:
-    }
+        // 変化後の予定位置を算出する
+        let absPosX = UIScreen.main.bounds.size.width * 2
+        let endCenterPosX = isLeft ? -absPosX : absPosX
+        let endCenterPosY = verocity.y
+        let endCenterPosition = CGPoint(x: endCenterPosX, y: endCenterPosY)
 
-    // カードを右側の領域外へ動かす
-    private func moveRightInvisiblePosition() {
+        UIView.animate(withDuration: durationOfDragging, delay: 0.0, usingSpringWithDamping: 0.68, initialSpringVelocity: 0.0, options: [.curveEaseInOut], animations: {
 
-        //TODO:
+            // ドラッグ処理終了時はViewのアルファ値を元に戻す
+            self.alpha = self.stopDraggingAlpha
+
+            // 変化後の予定位置までViewを移動する
+            self.center = endCenterPosition
+            
+        }, completion: { _ in
+
+            // 画面から該当のViewを削除する
+            self.removeFromSuperview()
+        })
+
+        // DelegeteメソッドのswipedLeftPositionを実行する
+        //let _ = isLeft ? self.delegate?.swipedLeftPosition(self) : self.delegate?.swipedRightPosition(self)
     }
 }
