@@ -58,4 +58,8 @@ class TinderCardSetViewDefaultSettings: TinderCardSetViewSetting {
     static var stopDraggingAlpha: CGFloat = 1.00
 
     static var maxScaleOfDragging: CGFloat = 0.96
+
+    static var swipeLeftLimitRatio: CGFloat = -0.78
+
+    static var swipeRightLimitRatio: CGFloat = 0.78
 }
