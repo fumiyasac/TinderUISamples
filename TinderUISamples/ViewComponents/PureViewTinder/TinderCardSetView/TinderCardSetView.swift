@@ -112,8 +112,10 @@ class TinderCardSetView: CustomViewBase {
                 x: self.center.x - xPositionFromCenter,
                 y: self.center.y - yPositionFromCenter
             )
-            print("beganCenterX", originalPoint.x)
-            print("beganCenterY", originalPoint.y)
+
+            // Debug.
+            //print("beganCenterX:", originalPoint.x)
+            //print("beganCenterY:", originalPoint.y)
 
             // ドラッグ処理開始時のViewのアルファ値を変更する
             UIView.animate(withDuration: durationOfDragging, delay: 0.0, options: [.curveEaseInOut], animations: {
@@ -139,7 +141,7 @@ class TinderCardSetView: CustomViewBase {
             currentMovePercentFromCenter = min(xPositionFromCenter / UIScreen.main.bounds.size.width, 1)
 
             // Debug.
-            //print(currentMovePercentFromCenter)
+            //print("currentMovePercentFromCenter:", currentMovePercentFromCenter)
 
             // 上記で算出した移動割合から回転量を取得し、初期配置時の回転量へ加算した値でアファイン変換を適用する
             let initialRotationAngle = atan2(initialTransform.b, initialTransform.a)
@@ -155,11 +157,14 @@ class TinderCardSetView: CustomViewBase {
 
         // ドラッグ終了時の処理
         case .ended, .cancelled:
+
+            // ドラッグ終了時点での速度を算出する
             let whenEndedVelocity = sender.velocity(in: self)
 
-            print("currentMovePercentFromCenter", currentMovePercentFromCenter)
-            print("whenEndedVelocity", whenEndedVelocity)
+            // Debug.
+            //print("whenEndedVelocity:", whenEndedVelocity)
 
+            // 移動割合のしきい値を超えていた場合には、画面外へ流れていくようにする（しきい値の範囲内は元に戻る）
             if currentMovePercentFromCenter < swipeLeftLimitRatio {
                 moveInvisiblePosition(verocity: whenEndedVelocity, isLeft: true)
             } else if swipeRightLimitRatio < currentMovePercentFromCenter {
@@ -254,6 +259,7 @@ class TinderCardSetView: CustomViewBase {
         let beforeInitializeTransform = CGAffineTransform(rotationAngle: angle)
         beforeInitializeTransform.scaledBy(x: beforeInitializeScale, y: beforeInitializeScale)
 
+        // 画面外からアニメーションを伴って現れる動きを設定する
         self.alpha = 0
         self.center = beforeInitializeCenter
         self.transform = beforeInitializeTransform
@@ -283,7 +289,7 @@ class TinderCardSetView: CustomViewBase {
     // カードを左側の領域外へ動かす
     private func moveInvisiblePosition(verocity: CGPoint, isLeft: Bool = true) {
 
-        // 変化後の予定位置を算出する
+        // 変化後の予定位置を算出する（Y軸方向の位置はverocityに基づいた値を採用する）
         let absPosX = UIScreen.main.bounds.size.width * 2
         let endCenterPosX = isLeft ? -absPosX : absPosX
         let endCenterPosY = verocity.y
