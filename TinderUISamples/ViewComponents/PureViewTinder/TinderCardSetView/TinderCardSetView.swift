@@ -58,18 +58,18 @@ class TinderCardSetView: CustomViewBase {
     private var currentMovePercentFromCenter: CGFloat = 0.0
 
     // TinderCardSetViewDefaultSettingsで設定した値を反映するための定数値
-    private let durationOfInitialize: TimeInterval = TinderCardSetViewDefaultSettings.durationOfInitialize
-    private let durationOfDragging: TimeInterval   = TinderCardSetViewDefaultSettings.durationOfDragging
+    private let durationOfInitialize: TimeInterval = TinderCardDefaultSettings.durationOfInitialize
+    private let durationOfDragging: TimeInterval   = TinderCardDefaultSettings.durationOfDragging
 
-    private let startDraggingAlpha: CGFloat = TinderCardSetViewDefaultSettings.startDraggingAlpha
-    private let stopDraggingAlpha: CGFloat  = TinderCardSetViewDefaultSettings.stopDraggingAlpha
-    private let maxScaleOfDragging: CGFloat = TinderCardSetViewDefaultSettings.maxScaleOfDragging
+    private let startDraggingAlpha: CGFloat = TinderCardDefaultSettings.startDraggingAlpha
+    private let stopDraggingAlpha: CGFloat  = TinderCardDefaultSettings.stopDraggingAlpha
+    private let maxScaleOfDragging: CGFloat = TinderCardDefaultSettings.maxScaleOfDragging
 
-    private let swipeLeftLimitRatio: CGFloat  = TinderCardSetViewDefaultSettings.swipeLeftLimitRatio
-    private let swipeRightLimitRatio: CGFloat = TinderCardSetViewDefaultSettings.swipeRightLimitRatio
+    private let swipeLeftLimitRatio: CGFloat  = TinderCardDefaultSettings.swipeLeftLimitRatio
+    private let swipeRightLimitRatio: CGFloat = TinderCardDefaultSettings.swipeRightLimitRatio
 
-    private let beforeInitializeScale: CGFloat = TinderCardSetViewDefaultSettings.beforeInitializeScale
-    private let afterInitializeScale: CGFloat  = TinderCardSetViewDefaultSettings.afterInitializeScale
+    private let beforeInitializeScale: CGFloat = TinderCardDefaultSettings.beforeInitializeScale
+    private let afterInitializeScale: CGFloat  = TinderCardDefaultSettings.afterInitializeScale
 
     // TinderCardSetDelegateのインスタンス宣言
     weak var delegate: TinderCardSetDelegate?
@@ -194,17 +194,24 @@ class TinderCardSetView: CustomViewBase {
     // このViewに対する初期設定を行う
     private func setupTinderCardSetView() {
         self.clipsToBounds   = true
-        self.backgroundColor = TinderCardSetViewDefaultSettings.backgroundColor
+        self.backgroundColor = TinderCardDefaultSettings.backgroundColor
+        self.frame = CGRect(
+            origin: CGPoint.zero,
+            size: CGSize(
+                width: TinderCardDefaultSettings.cardSetViewWidth,
+                height: TinderCardDefaultSettings.cardSetViewHeight
+            )
+        )
 
         // MEMO: この部分では背景のViewに関する設定のみ実装
         self.layer.masksToBounds = false
-        self.layer.borderColor   = TinderCardSetViewDefaultSettings.backgroundBorderColor
-        self.layer.borderWidth   = TinderCardSetViewDefaultSettings.backgroundBorderWidth
-        self.layer.cornerRadius  = TinderCardSetViewDefaultSettings.backgroundCornerRadius
-        self.layer.shadowRadius  = TinderCardSetViewDefaultSettings.backgroundShadowRadius
-        self.layer.shadowOpacity = TinderCardSetViewDefaultSettings.backgroundShadowOpacity
-        self.layer.shadowOffset  = TinderCardSetViewDefaultSettings.backgroundShadowOffset
-        self.layer.shadowColor   = TinderCardSetViewDefaultSettings.backgroundBorderColor
+        self.layer.borderColor   = TinderCardDefaultSettings.backgroundBorderColor
+        self.layer.borderWidth   = TinderCardDefaultSettings.backgroundBorderWidth
+        self.layer.cornerRadius  = TinderCardDefaultSettings.backgroundCornerRadius
+        self.layer.shadowRadius  = TinderCardDefaultSettings.backgroundShadowRadius
+        self.layer.shadowOpacity = TinderCardDefaultSettings.backgroundShadowOpacity
+        self.layer.shadowOffset  = TinderCardDefaultSettings.backgroundShadowOffset
+        self.layer.shadowColor   = TinderCardDefaultSettings.backgroundBorderColor
     }
 
     // このViewのViewの右下にあるボタンに対する初期設定を行う
@@ -249,8 +256,8 @@ class TinderCardSetView: CustomViewBase {
     private func moveInitialPosition() {
 
         // 表示前のカードの位置を設定する
-        let beforeInitializePosX: CGFloat = CGFloat(-Int.createRandom(range: Range(100...300)))
-        let beforeInitializePosY: CGFloat = CGFloat(-Int.createRandom(range: Range(100...300)))
+        let beforeInitializePosX: CGFloat = CGFloat(Int.createRandom(range: Range(-300...300)))
+        let beforeInitializePosY: CGFloat = CGFloat(-Int.createRandom(range: Range(300...600)))
         let beforeInitializeCenter = CGPoint(x: beforeInitializePosX, y: beforeInitializePosY)
 
         // 表示前のカードの傾きを設定する

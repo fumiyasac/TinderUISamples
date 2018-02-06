@@ -1,5 +1,5 @@
 //
-//  TinderCardSetViewDefaultSettings.swift
+//  TinderCardDefaultSettings.swift
 //  TinderUISamples
 //
 //  Created by 酒井文也 on 2018/02/04.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class TinderCardSetViewDefaultSettings: TinderCardSetViewSetting {
+class TinderCardDefaultSettings: TinderCardSetting {
 
     // MARK: - Properties
 

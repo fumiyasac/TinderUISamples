@@ -1,5 +1,5 @@
 //
-//  TinderCardSetViewSetting.swift
+//  TinderCardSetting.swift
 //  TinderUISamples
 //
 //  Created by 酒井文也 on 2018/02/04.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol TinderCardSetViewSetting {
+protocol TinderCardSetting {
 
     // MARK: - Static Properties
 
