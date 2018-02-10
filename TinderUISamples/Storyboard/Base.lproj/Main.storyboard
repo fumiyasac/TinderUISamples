@@ -96,6 +96,9 @@
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.99215686270000003" green="0.66666666669999997" blue="0.0039215686269999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="z7o-Fx-GAK" kind="relationship" relationship="rootViewController" id="Ghx-y2-Xh7"/>
@@ -105,7 +108,7 @@
             </objects>
             <point key="canvasLocation" x="706" y="758"/>
         </scene>
-        <!--Pure View Tinder View Controller-->
+        <!--レシピ選び-->
         <scene sceneID="vEM-av-OkP">
             <objects>
                 <viewController id="z7o-Fx-GAK" customClass="PureViewTinderViewController" customModule="TinderUISamples" customModuleProvider="target" sceneMemberID="viewController">
@@ -115,7 +118,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="4Rk-Hn-tFp"/>
                     </view>
-                    <navigationItem key="navigationItem" id="EaG-4H-k8h"/>
+                    <navigationItem key="navigationItem" title="レシピ選び" id="EaG-4H-k8h"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q8a-a2-55a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -18,14 +18,20 @@ import UIKit
 
 protocol TinderCardSetDelegate: NSObjectProtocol {
 
-    // 左側への移動割合のしきい値を超えた場合に実行されるアクション
-    func swipedLeftPosition(_ cardView: TinderCardSetView)
-
-    // 右側への移動割合のしきい値を超えた場合に実行されるアクション
-    func swipedRightPosition(_ cardView: TinderCardSetView)
+    // ドラッグ開始時に実行されるアクション
+    func beganDragging(_ cardView: TinderCardSetView)
 
     // 位置の変化が生じた際に実行されるアクション
     func updatePosition(_ cardView: TinderCardSetView, centerX: CGFloat, centerY: CGFloat)
+
+    // 左側へのスワイプ動作が完了した場合に実行されるアクション
+    func swipedLeftPosition(_ cardView: TinderCardSetView)
+
+    // 右側へのスワイプ動作が完了した場合に実行されるアクション
+    func swipedRightPosition(_ cardView: TinderCardSetView)
+
+    // 元の位置に戻る動作が完了したに実行されるアクション
+    func returnToOriginalPosition(_ cardView: TinderCardSetView)
 }
 
 class TinderCardSetView: CustomViewBase {
@@ -119,6 +125,9 @@ class TinderCardSetView: CustomViewBase {
                 x: self.center.x - xPositionFromCenter,
                 y: self.center.y - yPositionFromCenter
             )
+
+            // DelegeteメソッドのbeganDraggingを実行する
+            self.delegate?.beganDragging(self)
 
             // Debug.
             //print("beganCenterX:", originalPoint.x)
@@ -307,6 +316,10 @@ class TinderCardSetView: CustomViewBase {
             self.transform = self.initialTransform
 
         }, completion: nil)
+
+        // DelegeteメソッドのreturnToOriginalPositionを実行する
+        self.delegate?.returnToOriginalPosition(self)
+
     }
 
     // カードを左側の領域外へ動かす
