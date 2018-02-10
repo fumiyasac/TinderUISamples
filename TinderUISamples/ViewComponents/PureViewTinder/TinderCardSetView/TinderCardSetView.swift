@@ -55,7 +55,8 @@ class TinderCardSetView: CustomViewBase {
 
     // 中心位置からのX軸方向へ何パーセント移動したか（移動割合）を格納する変数
     // MEMO: 端部まで来た状態を1とする
-    private var currentMovePercentFromCenter: CGFloat = 0.0
+    private var currentMoveXPercentFromCenter: CGFloat = 0.0
+    private var currentMoveYPercentFromCenter: CGFloat = 0.0
 
     // TinderCardSetViewDefaultSettingsで設定した値を反映するための定数値
     private let durationOfInitialize: TimeInterval = TinderCardDefaultSettings.durationOfInitialize
@@ -65,8 +66,8 @@ class TinderCardSetView: CustomViewBase {
     private let stopDraggingAlpha: CGFloat  = TinderCardDefaultSettings.stopDraggingAlpha
     private let maxScaleOfDragging: CGFloat = TinderCardDefaultSettings.maxScaleOfDragging
 
-    private let swipeLeftLimitRatio: CGFloat  = TinderCardDefaultSettings.swipeLeftLimitRatio
-    private let swipeRightLimitRatio: CGFloat = TinderCardDefaultSettings.swipeRightLimitRatio
+    private let swipeXPosLimitRatio: CGFloat  = TinderCardDefaultSettings.swipeXPosLimitRatio
+    private let swipeYPosLimitRatio: CGFloat = TinderCardDefaultSettings.swipeYPosLimitRatio
 
     private let beforeInitializeScale: CGFloat = TinderCardDefaultSettings.beforeInitializeScale
     private let afterInitializeScale: CGFloat  = TinderCardDefaultSettings.afterInitializeScale
@@ -141,14 +142,18 @@ class TinderCardSetView: CustomViewBase {
             self.delegate?.updatePosition(self, centerX: newCenterX, centerY: newCenterY)
 
             // 中心位置からのX軸方向へ何パーセント移動したか（移動割合）を計算する
-            currentMovePercentFromCenter = min(xPositionFromCenter / UIScreen.main.bounds.size.width, 1)
+            currentMoveXPercentFromCenter = min(xPositionFromCenter / UIScreen.main.bounds.size.width, 1)
+
+            // 中心位置からのY軸方向へ何パーセント移動したか（移動割合）を計算する
+            currentMoveYPercentFromCenter = min(yPositionFromCenter / UIScreen.main.bounds.size.height, 1)
 
             // Debug.
-            //print("currentMovePercentFromCenter:", currentMovePercentFromCenter)
-
-            // 上記で算出した移動割合から回転量を取得し、初期配置時の回転量へ加算した値でアファイン変換を適用する
+            //print("currentMoveXPercentFromCenter:", currentMoveXPercentFromCenter)
+            //print("currentMoveYPercentFromCenter:", currentMoveYPercentFromCenter)
+            
+            // 上記で算出したX軸方向の移動割合から回転量を取得し、初期配置時の回転量へ加算した値でアファイン変換を適用する
             let initialRotationAngle = atan2(initialTransform.b, initialTransform.a)
-            let whenDraggingRotationAngel = initialRotationAngle + CGFloat.pi / 10 * currentMovePercentFromCenter
+            let whenDraggingRotationAngel = initialRotationAngle + CGFloat.pi / 10 * currentMoveXPercentFromCenter
             let transforms = CGAffineTransform(rotationAngle: whenDraggingRotationAngel)
 
             // 拡大縮小比を適用する
@@ -166,10 +171,14 @@ class TinderCardSetView: CustomViewBase {
             // Debug.
             //print("whenEndedVelocity:", whenEndedVelocity)
 
+            let shouldSwipeOut    = (abs(currentMoveXPercentFromCenter) > swipeXPosLimitRatio && abs(currentMoveYPercentFromCenter) > swipeYPosLimitRatio)
+            let shouldMoveToLeft  = (currentMoveXPercentFromCenter < 0 && shouldSwipeOut)
+            let shouldMoveToRight = (currentMoveXPercentFromCenter > 0 && shouldSwipeOut)
+
             // 移動割合のしきい値を超えていた場合には、画面外へ流れていくようにする（しきい値の範囲内は元に戻る）
-            if currentMovePercentFromCenter < swipeLeftLimitRatio {
+            if shouldMoveToLeft {
                 moveInvisiblePosition(verocity: whenEndedVelocity, isLeft: true)
-            } else if swipeRightLimitRatio < currentMovePercentFromCenter {
+            } else if shouldMoveToRight {
                 moveInvisiblePosition(verocity: whenEndedVelocity, isLeft: false)
             } else {
                 moveOriginalPosition()
@@ -179,7 +188,8 @@ class TinderCardSetView: CustomViewBase {
             originalPoint = CGPoint.zero
             xPositionFromCenter = 0.0
             yPositionFromCenter = 0.0
-            currentMovePercentFromCenter = 0.0
+            currentMoveXPercentFromCenter = 0.0
+            currentMoveYPercentFromCenter = 0.0
 
             break
 

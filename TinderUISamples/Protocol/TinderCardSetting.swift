@@ -76,9 +76,9 @@ protocol TinderCardSetting {
     // ドラッグ最中に変わるカードの拡大縮小比
     static var maxScaleOfDragging: CGFloat { get }
 
-    // ドラッグ終了時にカードをリリースするポイントの割合（中心からx％の位置で換算）
-    static var swipeLeftLimitRatio: CGFloat { get }
+    // ドラッグ終了時にカードをリリースするポイントのX軸方向の割合（中心からx％の位置で換算）
+    static var swipeXPosLimitRatio: CGFloat { get }
 
-    // ドラッグ終了時にカードをリリースするポイントの割合（中心からx％の位置で換算）
-    static var swipeRightLimitRatio: CGFloat { get }
+    // ドラッグ終了時にカードをリリースするポイントのY軸方向の割合（中心からx％の位置で換算）
+    static var swipeYPosLimitRatio: CGFloat { get }
 }
