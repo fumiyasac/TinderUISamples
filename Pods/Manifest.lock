@@ -1,11 +1,19 @@
 PODS:
+  - Alamofire (4.6.0)
   - Koloda (4.3.1):
     - pop (~> 1.0)
   - pop (1.0.10)
+  - SDWebImage (4.3.0):
+    - SDWebImage/Core (= 4.3.0)
+  - SDWebImage/Core (4.3.0)
+  - SwiftyJSON (4.0.0)
   - ZLSwipeableViewSwift (0.0.8)
 
 DEPENDENCIES:
+  - Alamofire
   - Koloda
+  - SDWebImage
+  - SwiftyJSON
   - ZLSwipeableViewSwift (from `https://github.com/zhxnlai/ZLSwipeableViewSwift`, branch `master`)
 
 EXTERNAL SOURCES:
@@ -19,10 +27,13 @@ CHECKOUT OPTIONS:
     :git: https://github.com/zhxnlai/ZLSwipeableViewSwift
 
 SPEC CHECKSUMS:
+  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   Koloda: 0d39b2aa188ccd1fac48d752acaf9802e683c625
   pop: 82ca6b068ce9278fd350fd9dd09482a0ce9492e6
+  SDWebImage: 6da6c8bca115addc4de8613362e1b15f66333825
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
   ZLSwipeableViewSwift: 488041f77089bfc03fe1419579ef32e976709f5d
 
-PODFILE CHECKSUM: 09ac9f370b20605868431110baad0732a7737dbb
+PODFILE CHECKSUM: 6e08cc157588070a5a2727b4e77ee2d700959a0b
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.4.0

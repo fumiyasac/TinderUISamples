@@ -28,6 +28,7 @@
 		DE21893D20262EA600B0E5C0 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE21893C20262EA600B0E5C0 /* UIColorExtension.swift */; };
 		DE21893F2027000F00B0E5C0 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE21893E2027000F00B0E5C0 /* IntExtension.swift */; };
 		DE218943202B7BCC00B0E5C0 /* rakuten_recipe_category_list.csv in Resources */ = {isa = PBXBuildFile; fileRef = DE218942202B7BCB00B0E5C0 /* rakuten_recipe_category_list.csv */; };
+		DE218947202F810800B0E5C0 /* APIRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE218946202F810700B0E5C0 /* APIRequestManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,7 @@
 		DE21893C20262EA600B0E5C0 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		DE21893E2027000F00B0E5C0 /* IntExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
 		DE218942202B7BCB00B0E5C0 /* rakuten_recipe_category_list.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rakuten_recipe_category_list.csv; sourceTree = "<group>"; };
+		DE218946202F810700B0E5C0 /* APIRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestManager.swift; sourceTree = "<group>"; };
 		E4A61A47756FDAF51B9B0B8A /* Pods-TinderUISamples.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinderUISamples.release.xcconfig"; path = "Pods/Target Support Files/Pods-TinderUISamples/Pods-TinderUISamples.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -265,6 +267,7 @@
 		DE218944202EEC6400B0E5C0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				DE218946202F810700B0E5C0 /* APIRequestManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -451,13 +454,19 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-TinderUISamples/Pods-TinderUISamples-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Koloda/Koloda.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/ZLSwipeableViewSwift/ZLSwipeableViewSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/pop/pop.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Koloda.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZLSwipeableViewSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/pop.framework",
 			);
@@ -483,6 +492,7 @@
 				DE21893F2027000F00B0E5C0 /* IntExtension.swift in Sources */,
 				DE218927201E075000B0E5C0 /* UIImageExtension.swift in Sources */,
 				DE21892A201E07CA00B0E5C0 /* CustomViewBase.swift in Sources */,
+				DE218947202F810800B0E5C0 /* APIRequestManager.swift in Sources */,
 				DE21893920262C5100B0E5C0 /* TinderCardSetting.swift in Sources */,
 				DE2188F12018146F00B0E5C0 /* AppDelegate.swift in Sources */,
 				DE21893D20262EA600B0E5C0 /* UIColorExtension.swift in Sources */,

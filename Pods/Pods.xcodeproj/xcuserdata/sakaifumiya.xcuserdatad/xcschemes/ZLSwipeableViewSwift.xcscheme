@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'A28314B3E0A3CCA018A4937EEBD8F78A'
-               BlueprintName = 'ZLSwipeableViewSwift'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'ZLSwipeableViewSwift.framework'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "376C937AA5F95D6901074C4F78099A2B"
+               BlueprintName = "ZLSwipeableViewSwift"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "ZLSwipeableViewSwift.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

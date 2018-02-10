@@ -8,4 +8,10 @@ target 'TinderUISamples' do
   # Pods for TinderUISamples
   pod 'ZLSwipeableViewSwift', :git => 'https://github.com/zhxnlai/ZLSwipeableViewSwift', :branch => 'master'
   pod 'Koloda'
+
+  # Pods for Utility
+  pod 'Alamofire'
+  pod 'SwiftyJSON'
+  pod 'SDWebImage'
+
 end
