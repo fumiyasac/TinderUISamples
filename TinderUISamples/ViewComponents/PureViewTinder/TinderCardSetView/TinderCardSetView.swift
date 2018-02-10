@@ -151,9 +151,8 @@ class TinderCardSetView: CustomViewBase {
             let whenDraggingRotationAngel = initialRotationAngle + CGFloat.pi / 10 * currentMovePercentFromCenter
             let transforms = CGAffineTransform(rotationAngle: whenDraggingRotationAngel)
 
-            // 上記で算出した移動割合から拡大縮小比を取得し、アファイン変換を適用する
-            let whenDraggingScale = max(1 - fabs(currentMovePercentFromCenter) / 5, maxScaleOfDragging)
-            let scaleTransform: CGAffineTransform = transforms.scaledBy(x: whenDraggingScale, y: whenDraggingScale)
+            // 拡大縮小比を適用する
+            let scaleTransform: CGAffineTransform = transforms.scaledBy(x: maxScaleOfDragging, y: maxScaleOfDragging)
             self.transform = scaleTransform
 
             break
@@ -196,6 +195,8 @@ class TinderCardSetView: CustomViewBase {
 
     // このViewに対する初期設定を行う
     private func setupTinderCardSetView() {
+
+       // カード状のViewに関する基本的な設定 ※設定できるパラメータは全てTinderCardDefaultSettings.swiftへ委譲している
         self.clipsToBounds   = true
         self.backgroundColor = TinderCardDefaultSettings.backgroundColor
         self.frame = CGRect(
@@ -300,7 +301,7 @@ class TinderCardSetView: CustomViewBase {
     private func moveInvisiblePosition(verocity: CGPoint, isLeft: Bool = true) {
 
         // 変化後の予定位置を算出する（Y軸方向の位置はverocityに基づいた値を採用する）
-        let absPosX = UIScreen.main.bounds.size.width * 2
+        let absPosX = UIScreen.main.bounds.size.width * 1.6
         let endCenterPosX = isLeft ? -absPosX : absPosX
         let endCenterPosY = verocity.y
         let endCenterPosition = CGPoint(x: endCenterPosX, y: endCenterPosY)
