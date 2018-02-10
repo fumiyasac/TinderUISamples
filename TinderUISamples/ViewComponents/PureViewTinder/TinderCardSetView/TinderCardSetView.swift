@@ -59,14 +59,17 @@ class TinderCardSetView: CustomViewBase {
     private var currentMoveYPercentFromCenter: CGFloat = 0.0
 
     // TinderCardSetViewDefaultSettingsで設定した値を反映するための定数値
-    private let durationOfInitialize: TimeInterval = TinderCardDefaultSettings.durationOfInitialize
-    private let durationOfDragging: TimeInterval   = TinderCardDefaultSettings.durationOfDragging
+    private let durationOfInitialize: TimeInterval    = TinderCardDefaultSettings.durationOfInitialize
+    private let durationOfStartDragging: TimeInterval = TinderCardDefaultSettings.durationOfStartDragging
 
+    private let durationOfReturnOriginal: TimeInterval = TinderCardDefaultSettings.durationOfReturnOriginal
+    private let durationOfSwipeOut: TimeInterval       = TinderCardDefaultSettings.durationOfSwipeOut
+    
     private let startDraggingAlpha: CGFloat = TinderCardDefaultSettings.startDraggingAlpha
     private let stopDraggingAlpha: CGFloat  = TinderCardDefaultSettings.stopDraggingAlpha
     private let maxScaleOfDragging: CGFloat = TinderCardDefaultSettings.maxScaleOfDragging
 
-    private let swipeXPosLimitRatio: CGFloat  = TinderCardDefaultSettings.swipeXPosLimitRatio
+    private let swipeXPosLimitRatio: CGFloat = TinderCardDefaultSettings.swipeXPosLimitRatio
     private let swipeYPosLimitRatio: CGFloat = TinderCardDefaultSettings.swipeYPosLimitRatio
 
     private let beforeInitializeScale: CGFloat = TinderCardDefaultSettings.beforeInitializeScale
@@ -122,7 +125,7 @@ class TinderCardSetView: CustomViewBase {
             //print("beganCenterY:", originalPoint.y)
 
             // ドラッグ処理開始時のViewのアルファ値を変更する
-            UIView.animate(withDuration: durationOfDragging, delay: 0.0, options: [.curveEaseInOut], animations: {
+            UIView.animate(withDuration: durationOfStartDragging, delay: 0.0, options: [.curveEaseInOut], animations: {
                 self.alpha = self.startDraggingAlpha
             }, completion: nil)
 
@@ -171,11 +174,10 @@ class TinderCardSetView: CustomViewBase {
             // Debug.
             //print("whenEndedVelocity:", whenEndedVelocity)
 
-            let shouldSwipeOut    = (abs(currentMoveXPercentFromCenter) > swipeXPosLimitRatio && abs(currentMoveYPercentFromCenter) > swipeYPosLimitRatio)
-            let shouldMoveToLeft  = (currentMoveXPercentFromCenter < 0 && shouldSwipeOut)
-            let shouldMoveToRight = (currentMoveXPercentFromCenter > 0 && shouldSwipeOut)
+             // 移動割合のしきい値を超えていた場合には、画面外へ流れていくようにする（しきい値の範囲内の場合は元に戻る）
+            let shouldMoveToLeft  = (currentMoveXPercentFromCenter < -swipeXPosLimitRatio && abs(currentMoveYPercentFromCenter) > swipeYPosLimitRatio)
+            let shouldMoveToRight = (currentMoveXPercentFromCenter > swipeXPosLimitRatio && abs(currentMoveYPercentFromCenter) > swipeYPosLimitRatio)
 
-            // 移動割合のしきい値を超えていた場合には、画面外へ流れていくようにする（しきい値の範囲内は元に戻る）
             if shouldMoveToLeft {
                 moveInvisiblePosition(verocity: whenEndedVelocity, isLeft: true)
             } else if shouldMoveToRight {
@@ -295,7 +297,7 @@ class TinderCardSetView: CustomViewBase {
     // カードを元の位置へ戻す
     private func moveOriginalPosition() {
 
-        UIView.animate(withDuration: durationOfDragging, delay: 0.0, usingSpringWithDamping: 0.68, initialSpringVelocity: 0.0, options: [.curveEaseInOut], animations: {
+        UIView.animate(withDuration: durationOfReturnOriginal, delay: 0.0, usingSpringWithDamping: 0.68, initialSpringVelocity: 0.0, options: [.curveEaseInOut], animations: {
 
             // ドラッグ処理終了時はViewのアルファ値を元に戻す
             self.alpha = self.stopDraggingAlpha
@@ -316,7 +318,7 @@ class TinderCardSetView: CustomViewBase {
         let endCenterPosY = verocity.y
         let endCenterPosition = CGPoint(x: endCenterPosX, y: endCenterPosY)
 
-        UIView.animate(withDuration: durationOfDragging, delay: 0.0, usingSpringWithDamping: 0.68, initialSpringVelocity: 0.0, options: [.curveEaseInOut], animations: {
+        UIView.animate(withDuration: durationOfSwipeOut, delay: 0.0, usingSpringWithDamping: 0.68, initialSpringVelocity: 0.0, options: [.curveEaseInOut], animations: {
 
             // ドラッグ処理終了時はViewのアルファ値を元に戻す
             self.alpha = self.stopDraggingAlpha

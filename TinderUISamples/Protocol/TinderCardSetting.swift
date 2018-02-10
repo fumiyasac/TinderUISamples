@@ -64,8 +64,14 @@ protocol TinderCardSetting {
     // 初期化表示時のアニメーションの時間
     static var durationOfInitialize: TimeInterval { get }
 
-    // ドラッグ開始時・終了時に実行されるアニメーションの時間
-    static var durationOfDragging: TimeInterval { get }
+    // ドラッグ開始時に実行されるアニメーションの時間
+    static var durationOfStartDragging: TimeInterval { get }
+
+    // ドラッグ終了時(元の位置に戻る場合)に実行されるアニメーションの時間
+    static var durationOfReturnOriginal: TimeInterval { get }
+
+    // ドラッグ終了時(スクリーン外に出る場合)に実行されるアニメーションの時間
+    static var durationOfSwipeOut: TimeInterval { get }
 
     // ドラッグ開始時に変わるカードのアルファ値
     static var startDraggingAlpha: CGFloat { get }

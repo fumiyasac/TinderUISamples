@@ -57,7 +57,11 @@ class TinderCardDefaultSettings: TinderCardSetting {
 
     static var durationOfInitialize: TimeInterval = 0.93
 
-    static var durationOfDragging: TimeInterval = 0.26
+    static var durationOfStartDragging: TimeInterval = 0.26
+
+    static var durationOfReturnOriginal: TimeInterval = 0.26
+    
+    static var durationOfSwipeOut: TimeInterval = 0.48
 
     static var startDraggingAlpha: CGFloat = 0.98
     
@@ -65,7 +69,7 @@ class TinderCardDefaultSettings: TinderCardSetting {
 
     static var maxScaleOfDragging: CGFloat = 1.00
 
-    static var swipeXPosLimitRatio: CGFloat = 0.48
+    static var swipeXPosLimitRatio: CGFloat = 0.54
 
     static var swipeYPosLimitRatio: CGFloat = 0.12
 }
