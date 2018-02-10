@@ -73,9 +73,12 @@ class TinderCardSetView: CustomViewBase {
 
     // TinderCardSetDelegateのインスタンス宣言
     weak var delegate: TinderCardSetDelegate?
-    
+ 
     // 「続きを読む」ボタンタップ時に実行されるクロージャー
     var readmoreButtonAction: (() -> ())?
+
+    // インスタンス化されたView識別用のインデックス番号
+    var index: Int = 0
 
     // MARK: - Initializer
 
@@ -135,7 +138,7 @@ class TinderCardSetView: CustomViewBase {
             self.center = CGPoint(x: newCenterX, y: newCenterY)
 
             // DelegeteメソッドのupdatePositionを実行する
-            //self.delegate?.updatePosition(self, centerX: newCenterX, centerY: newCenterY)
+            self.delegate?.updatePosition(self, centerX: newCenterX, centerY: newCenterY)
 
             // 中心位置からのX軸方向へ何パーセント移動したか（移動割合）を計算する
             currentMovePercentFromCenter = min(xPositionFromCenter / UIScreen.main.bounds.size.width, 1)
@@ -312,11 +315,11 @@ class TinderCardSetView: CustomViewBase {
             
         }, completion: { _ in
 
+            // DelegeteメソッドのswipedLeftPositionを実行する
+            let _ = isLeft ? self.delegate?.swipedLeftPosition(self) : self.delegate?.swipedRightPosition(self)
+
             // 画面から該当のViewを削除する
             self.removeFromSuperview()
         })
-
-        // DelegeteメソッドのswipedLeftPositionを実行する
-        //let _ = isLeft ? self.delegate?.swipedLeftPosition(self) : self.delegate?.swipedRightPosition(self)
     }
 }

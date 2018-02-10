@@ -27,6 +27,7 @@
 		DE21893B20262E1500B0E5C0 /* TinderCardDefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE21893A20262E1500B0E5C0 /* TinderCardDefaultSettings.swift */; };
 		DE21893D20262EA600B0E5C0 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE21893C20262EA600B0E5C0 /* UIColorExtension.swift */; };
 		DE21893F2027000F00B0E5C0 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE21893E2027000F00B0E5C0 /* IntExtension.swift */; };
+		DE218943202B7BCC00B0E5C0 /* rakuten_recipe_category_list.csv in Resources */ = {isa = PBXBuildFile; fileRef = DE218942202B7BCB00B0E5C0 /* rakuten_recipe_category_list.csv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		DE21893A20262E1500B0E5C0 /* TinderCardDefaultSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinderCardDefaultSettings.swift; sourceTree = "<group>"; };
 		DE21893C20262EA600B0E5C0 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		DE21893E2027000F00B0E5C0 /* IntExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
+		DE218942202B7BCB00B0E5C0 /* rakuten_recipe_category_list.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rakuten_recipe_category_list.csv; sourceTree = "<group>"; };
 		E4A61A47756FDAF51B9B0B8A /* Pods-TinderUISamples.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinderUISamples.release.xcconfig"; path = "Pods/Target Support Files/Pods-TinderUISamples/Pods-TinderUISamples.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -150,6 +152,7 @@
 				DE2188F22018146F00B0E5C0 /* ViewController.swift */,
 				DE2188F72018146F00B0E5C0 /* Assets.xcassets */,
 				DE218928201E076B00B0E5C0 /* BaseClass */,
+				DE218941202B7B6800B0E5C0 /* DataSet */,
 				DE218925201E073C00B0E5C0 /* Extension */,
 				DE218940202A180200B0E5C0 /* Protocol */,
 				DE218924201E06DE00B0E5C0 /* Storyboard */,
@@ -247,6 +250,14 @@
 				DE21893820262C5100B0E5C0 /* TinderCardSetting.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		DE218941202B7B6800B0E5C0 /* DataSet */ = {
+			isa = PBXGroup;
+			children = (
+				DE218942202B7BCB00B0E5C0 /* rakuten_recipe_category_list.csv */,
+			);
+			path = DataSet;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -360,6 +371,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE2188FB2018146F00B0E5C0 /* LaunchScreen.storyboard in Resources */,
+				DE218943202B7BCC00B0E5C0 /* rakuten_recipe_category_list.csv in Resources */,
 				DE2189352026092800B0E5C0 /* TinderCardSetView.xib in Resources */,
 				DE2188F82018146F00B0E5C0 /* Assets.xcassets in Resources */,
 				DE2188F62018146F00B0E5C0 /* Main.storyboard in Resources */,
