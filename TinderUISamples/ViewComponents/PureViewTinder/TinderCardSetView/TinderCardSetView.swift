@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 /**
  * 下記のライブラリでの実装を参考にして作成
@@ -101,9 +102,14 @@ class TinderCardSetView: CustomViewBase {
 
     // MARK: - Function
 
-    /*
-    func setViewData() {}
-    */
+    func setViewData(_ recipe: RecipeModel) {
+        titleLabel.text = recipe.recipeTitle
+        dateLabel.text = recipe.recipePublishday + " : " + recipe.recipeCost
+        remarkLabel.text = recipe.recipeIndication
+        thumbnailImageView.kf.indicatorType = .activity
+        thumbnailImageView.kf.setImage(with: URL(string: recipe.foodImageUrl))
+        descriptionLabel.text = recipe.recipeDescription
+    }
 
     // MARK: - Private Function
 

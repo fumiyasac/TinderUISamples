@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "376C937AA5F95D6901074C4F78099A2B"
+               BlueprintIdentifier = "1052486B8945667E461BC4E24395D2C4"
                BlueprintName = "ZLSwipeableViewSwift"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "ZLSwipeableViewSwift.framework">

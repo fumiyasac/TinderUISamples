@@ -7,22 +7,24 @@
 //
 
 import UIKit
+import SafariServices
 
-class PureViewTinderViewController: UIViewController {
+class PureViewTinderViewController: UIViewController, SFSafariViewControllerDelegate {
 
     // カード表示用のViewを格納するための配列
     fileprivate var tinderCardSetViewList: [TinderCardSetView] = []
 
-    // 1回あたりで追加できるカード枚数
-    private let tinderCardSetViewCount: Int = 4
+    //RecipePresenterに設定したプロトコルを適用するための変数
+    fileprivate var presenter: RecipePresenter!
 
     // 追加できるカード枚数の上限値
-    private let tinderCardSetViewCountLimit: Int = 20
+    fileprivate let tinderCardSetViewCountLimit: Int = 16
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        addTinderCardSetViews()
+        setupRecipePresenter()
+        setupAddCardButton()
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,14 +33,49 @@ class PureViewTinderViewController: UIViewController {
 
     // MARK: - Private Function
 
+    // カードを新しく追加するボタン押下時に実行されるアクションに関する設定を行う
+    @objc private func addCardButtonTapped() {
+
+        presenter.getRecipes()
+    }
+
+    // カードを新しく追加するボタンに関する設定を行う
+    private func setupAddCardButton() {
+
+        self.navigationItem.rightBarButtonItem =
+            UIBarButtonItem(title: "追加!", style: .done, target: self, action: #selector(self.addCardButtonTapped))
+    }
+    
+    // Presenterとの接続に関する設定を行う
+    private func setupRecipePresenter() {
+
+        presenter = RecipePresenter(presenter: self)
+        presenter.getRecipes()
+    }
+
+    // MARK: - Fileprivate Function
+
     // 画面上にカードを追加する
-    private func addTinderCardSetViews() {
- 
-        for _ in 0..<tinderCardSetViewCount {
+    fileprivate func addTinderCardSetViews(recipes: [RecipeModel]) {
+
+        for index in 0..<recipes.count {
+            
+            // Debug.
+            print(recipes[index])
 
             // TinderCardSetViewのインスタンスを作成してプロトコル宣言やタッチイベント等の初期設定を行う
             let tinderCardSetView = TinderCardSetView()
             tinderCardSetView.delegate = self
+            tinderCardSetView.setViewData(recipes[index])
+            tinderCardSetView.readmoreButtonAction = {
+
+                // 遷移先のURLをセットする
+                if let linkUrl = URL(string: recipes[index].recipeUrl) {
+                    let safariViewController = SFSafariViewController(url: linkUrl)
+                    safariViewController.delegate = self
+                    self.present(safariViewController, animated: true, completion: nil)
+                }
+            }
             tinderCardSetView.isUserInteractionEnabled = false
             tinderCardSetViewList.append(tinderCardSetView)
 
@@ -53,8 +90,6 @@ class PureViewTinderViewController: UIViewController {
         // 画面上にあるカードの山の拡大縮小比を調節する
         changeScaleToCardSetViews(skipSelectedView: false)
     }
-
-    // MARK: - Fileprivate Function
 
     // 画面上にあるカードの山のうち、一番上にあるViewのみを操作できるようにする
     fileprivate func enableUserInteractionToFirstCardSetView() {
@@ -88,6 +123,40 @@ class PureViewTinderViewController: UIViewController {
         }
     }
 }
+
+extension PureViewTinderViewController: RecipePresenterProtocol {
+
+    // レシピデータ取得に成功した際の処理
+    func bindRecipes(_ recipes: [RecipeModel]) {
+
+        guard tinderCardSetViewList.count + recipes.count < tinderCardSetViewCountLimit else {
+
+            showAlertControllerWith(title: "表示データを制限しています", message: "この画面内に追加できるレシピデータの総数は合計20までとなっておりますのでご注意下さい。")
+            return
+        }
+
+        // カード表示用のViewを画面に追加する
+        addTinderCardSetViews(recipes: recipes)
+    }
+
+    // レシピデータ取得に失敗した際の処理
+    func showErrorMessage() {
+
+        showAlertControllerWith(title: "通信時にエラーが発生しました", message: "データの取得に失敗しました。通信状態の良い場所かWift等ネットワークに接続した状態で再度お試し下さい。")
+    }
+
+    // MARK: - Private Function
+
+    private func showAlertControllerWith(title: String, message: String) {
+
+        let errorAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        errorAlert.addAction(
+            UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
+        )
+        self.present(errorAlert, animated: true, completion: nil)
+    }
+}
+
 
 extension PureViewTinderViewController: TinderCardSetDelegate {
 

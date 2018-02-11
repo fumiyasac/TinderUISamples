@@ -12,6 +12,5 @@ target 'TinderUISamples' do
   # Pods for Utility
   pod 'Alamofire'
   pod 'SwiftyJSON'
-  pod 'SDWebImage'
-
+  pod 'Kingfisher'
 end
