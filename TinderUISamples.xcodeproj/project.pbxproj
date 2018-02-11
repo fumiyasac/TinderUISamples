@@ -19,8 +19,6 @@
 		DE218922201E06C700B0E5C0 /* PureViewTinderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE218921201E06C700B0E5C0 /* PureViewTinderViewController.swift */; };
 		DE218927201E075000B0E5C0 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE218926201E075000B0E5C0 /* UIImageExtension.swift */; };
 		DE21892A201E07CA00B0E5C0 /* CustomViewBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE218929201E07CA00B0E5C0 /* CustomViewBase.swift */; };
-		DE21892E201E10F600B0E5C0 /* FirstLibraryTinderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE21892D201E10F600B0E5C0 /* FirstLibraryTinderViewController.swift */; };
-		DE218930201E110B00B0E5C0 /* SecondLibraryTinderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE21892F201E110B00B0E5C0 /* SecondLibraryTinderViewController.swift */; };
 		DE2189352026092800B0E5C0 /* TinderCardSetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE2189342026092800B0E5C0 /* TinderCardSetView.xib */; };
 		DE2189372026096200B0E5C0 /* TinderCardSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2189362026096200B0E5C0 /* TinderCardSetView.swift */; };
 		DE21893920262C5100B0E5C0 /* TinderCardSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE21893820262C5100B0E5C0 /* TinderCardSetting.swift */; };
@@ -71,8 +69,6 @@
 		DE218921201E06C700B0E5C0 /* PureViewTinderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PureViewTinderViewController.swift; sourceTree = "<group>"; };
 		DE218926201E075000B0E5C0 /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		DE218929201E07CA00B0E5C0 /* CustomViewBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewBase.swift; sourceTree = "<group>"; };
-		DE21892D201E10F600B0E5C0 /* FirstLibraryTinderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLibraryTinderViewController.swift; sourceTree = "<group>"; };
-		DE21892F201E110B00B0E5C0 /* SecondLibraryTinderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondLibraryTinderViewController.swift; sourceTree = "<group>"; };
 		DE2189342026092800B0E5C0 /* TinderCardSetView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TinderCardSetView.xib; sourceTree = "<group>"; };
 		DE2189362026096200B0E5C0 /* TinderCardSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinderCardSetView.swift; sourceTree = "<group>"; };
 		DE21893820262C5100B0E5C0 /* TinderCardSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinderCardSetting.swift; sourceTree = "<group>"; };
@@ -196,8 +192,6 @@
 			children = (
 				DE21891F2019F19D00B0E5C0 /* CollectionViewTinderViewController.swift */,
 				DE218921201E06C700B0E5C0 /* PureViewTinderViewController.swift */,
-				DE21892D201E10F600B0E5C0 /* FirstLibraryTinderViewController.swift */,
-				DE21892F201E110B00B0E5C0 /* SecondLibraryTinderViewController.swift */,
 			);
 			path = TinderUI;
 			sourceTree = "<group>";
@@ -501,11 +495,9 @@
 			files = (
 				DE21894B202F841800B0E5C0 /* RecipePresenter.swift in Sources */,
 				DE2189372026096200B0E5C0 /* TinderCardSetView.swift in Sources */,
-				DE218930201E110B00B0E5C0 /* SecondLibraryTinderViewController.swift in Sources */,
 				DE218949202F840300B0E5C0 /* RecipeModel.swift in Sources */,
 				DE2189202019F19E00B0E5C0 /* CollectionViewTinderViewController.swift in Sources */,
 				DE218922201E06C700B0E5C0 /* PureViewTinderViewController.swift in Sources */,
-				DE21892E201E10F600B0E5C0 /* FirstLibraryTinderViewController.swift in Sources */,
 				DE2188F32018146F00B0E5C0 /* ViewController.swift in Sources */,
 				DE21893B20262E1500B0E5C0 /* TinderCardDefaultSettings.swift in Sources */,
 				DE21893F2027000F00B0E5C0 /* IntExtension.swift in Sources */,
