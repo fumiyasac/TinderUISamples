@@ -131,7 +131,7 @@ extension PureViewTinderViewController: RecipePresenterProtocol {
 
         guard tinderCardSetViewList.count + recipes.count < tinderCardSetViewCountLimit else {
 
-            showAlertControllerWith(title: "表示データを制限しています", message: "この画面内に追加できるレシピデータの総数は合計20までとなっておりますのでご注意下さい。")
+            showAlertControllerWith(title: "表示データを制限しています", message: "この画面内に追加できるレシピデータの総数は合計16件までとなっておりますのでご注意下さい。")
             return
         }
 
