@@ -61,7 +61,7 @@ class PureViewTinderViewController: UIViewController, SFSafariViewControllerDele
         for index in 0..<recipes.count {
             
             // Debug.
-            print(recipes[index])
+            //print(recipes[index])
 
             // TinderCardSetViewのインスタンスを作成してプロトコル宣言やタッチイベント等の初期設定を行う
             let tinderCardSetView = TinderCardSetView()
