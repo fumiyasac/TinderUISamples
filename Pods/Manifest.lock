@@ -1,37 +1,18 @@
 PODS:
   - Alamofire (4.6.0)
   - Kingfisher (4.6.1)
-  - Koloda (4.3.1):
-    - pop (~> 1.0)
-  - pop (1.0.10)
   - SwiftyJSON (4.0.0)
-  - ZLSwipeableViewSwift (0.0.8)
 
 DEPENDENCIES:
   - Alamofire
   - Kingfisher
-  - Koloda
   - SwiftyJSON
-  - ZLSwipeableViewSwift (from `https://github.com/zhxnlai/ZLSwipeableViewSwift`, branch `master`)
-
-EXTERNAL SOURCES:
-  ZLSwipeableViewSwift:
-    :branch: master
-    :git: https://github.com/zhxnlai/ZLSwipeableViewSwift
-
-CHECKOUT OPTIONS:
-  ZLSwipeableViewSwift:
-    :commit: 59826e2b77aebbfba53d0206238dda527dfd6951
-    :git: https://github.com/zhxnlai/ZLSwipeableViewSwift
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   Kingfisher: 1f9157d9c02b380cbd0b7cc890161195164eb634
-  Koloda: 0d39b2aa188ccd1fac48d752acaf9802e683c625
-  pop: 82ca6b068ce9278fd350fd9dd09482a0ce9492e6
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
-  ZLSwipeableViewSwift: 488041f77089bfc03fe1419579ef32e976709f5d
 
-PODFILE CHECKSUM: 53d3278c627aac51e88f4ef51b6168c501a93903
+PODFILE CHECKSUM: f40ea099394eb47ae625aefc015242a8336c6b54
 
 COCOAPODS: 1.4.0

@@ -6,8 +6,10 @@ target 'TinderUISamples' do
   use_frameworks!
 
   # Pods for TinderUISamples
-  pod 'ZLSwipeableViewSwift', :git => 'https://github.com/zhxnlai/ZLSwipeableViewSwift', :branch => 'master'
-  pod 'Koloda'
+
+  # Pods for TinderUI
+  # pod 'ZLSwipeableViewSwift', :git => 'https://github.com/zhxnlai/ZLSwipeableViewSwift', :branch => 'master'
+  # pod 'Koloda'
 
   # Pods for Utility
   pod 'Alamofire'
