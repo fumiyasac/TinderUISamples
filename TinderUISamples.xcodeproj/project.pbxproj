@@ -32,6 +32,7 @@
 		DE21894E202F854300B0E5C0 /* APIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE21894D202F854300B0E5C0 /* APIConstant.swift */; };
 		DE590E3E20313B0C0069BAB2 /* TinderCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE590E3C20313B0C0069BAB2 /* TinderCardCollectionViewCell.swift */; };
 		DE590E3F20313B0C0069BAB2 /* TinderCardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE590E3D20313B0C0069BAB2 /* TinderCardCollectionViewCell.xib */; };
+		DE590E422031B43F0069BAB2 /* TinderCardCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE590E412031B43F0069BAB2 /* TinderCardCollectionViewLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,7 @@
 		DE21894D202F854300B0E5C0 /* APIConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstant.swift; sourceTree = "<group>"; };
 		DE590E3C20313B0C0069BAB2 /* TinderCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinderCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		DE590E3D20313B0C0069BAB2 /* TinderCardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TinderCardCollectionViewCell.xib; sourceTree = "<group>"; };
+		DE590E412031B43F0069BAB2 /* TinderCardCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinderCardCollectionViewLayout.swift; sourceTree = "<group>"; };
 		E4A61A47756FDAF51B9B0B8A /* Pods-TinderUISamples.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinderUISamples.release.xcconfig"; path = "Pods/Target Support Files/Pods-TinderUISamples/Pods-TinderUISamples.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -299,6 +301,7 @@
 			isa = PBXGroup;
 			children = (
 				DE590E3B20313AD20069BAB2 /* TinderCardCollectionViewCell */,
+				DE590E402031B40A0069BAB2 /* TinderCardCollectionViewLayout */,
 			);
 			path = CollectionViewTinderView;
 			sourceTree = "<group>";
@@ -310,6 +313,14 @@
 				DE590E3D20313B0C0069BAB2 /* TinderCardCollectionViewCell.xib */,
 			);
 			path = TinderCardCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		DE590E402031B40A0069BAB2 /* TinderCardCollectionViewLayout */ = {
+			isa = PBXGroup;
+			children = (
+				DE590E412031B43F0069BAB2 /* TinderCardCollectionViewLayout.swift */,
+			);
+			path = TinderCardCollectionViewLayout;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -526,6 +537,7 @@
 				DE21893920262C5100B0E5C0 /* TinderCardSetting.swift in Sources */,
 				DE2188F12018146F00B0E5C0 /* AppDelegate.swift in Sources */,
 				DE21893D20262EA600B0E5C0 /* UIColorExtension.swift in Sources */,
+				DE590E422031B43F0069BAB2 /* TinderCardCollectionViewLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
