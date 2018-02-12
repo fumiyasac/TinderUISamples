@@ -94,6 +94,7 @@ class TinderCardSetView: CustomViewBase {
     // MARK: - Initializer
 
     override func initWith() {
+
         setupTinderCardSetView()
         setupReadmoreButton()
         setupPanGestureRecognizer()

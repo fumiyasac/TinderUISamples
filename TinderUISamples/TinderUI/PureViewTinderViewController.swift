@@ -124,6 +124,8 @@ class PureViewTinderViewController: UIViewController, SFSafariViewControllerDele
     }
 }
 
+// MARK: - RecipePresenterProtocol
+
 extension PureViewTinderViewController: RecipePresenterProtocol {
 
     // レシピデータ取得に成功した際の処理
@@ -157,6 +159,7 @@ extension PureViewTinderViewController: RecipePresenterProtocol {
     }
 }
 
+// MARK: - TinderCardSetDelegate
 
 extension PureViewTinderViewController: TinderCardSetDelegate {
 

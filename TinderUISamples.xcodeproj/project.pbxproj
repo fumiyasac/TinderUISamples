@@ -30,6 +30,8 @@
 		DE218949202F840300B0E5C0 /* RecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE218948202F840300B0E5C0 /* RecipeModel.swift */; };
 		DE21894B202F841800B0E5C0 /* RecipePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE21894A202F841800B0E5C0 /* RecipePresenter.swift */; };
 		DE21894E202F854300B0E5C0 /* APIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE21894D202F854300B0E5C0 /* APIConstant.swift */; };
+		DE590E3E20313B0C0069BAB2 /* TinderCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE590E3C20313B0C0069BAB2 /* TinderCardCollectionViewCell.swift */; };
+		DE590E3F20313B0C0069BAB2 /* TinderCardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE590E3D20313B0C0069BAB2 /* TinderCardCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +82,8 @@
 		DE218948202F840300B0E5C0 /* RecipeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeModel.swift; sourceTree = "<group>"; };
 		DE21894A202F841800B0E5C0 /* RecipePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipePresenter.swift; sourceTree = "<group>"; };
 		DE21894D202F854300B0E5C0 /* APIConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstant.swift; sourceTree = "<group>"; };
+		DE590E3C20313B0C0069BAB2 /* TinderCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinderCardCollectionViewCell.swift; sourceTree = "<group>"; };
+		DE590E3D20313B0C0069BAB2 /* TinderCardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TinderCardCollectionViewCell.xib; sourceTree = "<group>"; };
 		E4A61A47756FDAF51B9B0B8A /* Pods-TinderUISamples.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinderUISamples.release.xcconfig"; path = "Pods/Target Support Files/Pods-TinderUISamples/Pods-TinderUISamples.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -226,6 +230,7 @@
 		DE218931201E111500B0E5C0 /* ViewComponents */ = {
 			isa = PBXGroup;
 			children = (
+				DE590E3A20313AA80069BAB2 /* CollectionViewTinderView */,
 				DE218932201E1B1300B0E5C0 /* PureViewTinder */,
 			);
 			path = ViewComponents;
@@ -288,6 +293,23 @@
 				DE218946202F810700B0E5C0 /* APIRequestManager.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		DE590E3A20313AA80069BAB2 /* CollectionViewTinderView */ = {
+			isa = PBXGroup;
+			children = (
+				DE590E3B20313AD20069BAB2 /* TinderCardCollectionViewCell */,
+			);
+			path = CollectionViewTinderView;
+			sourceTree = "<group>";
+		};
+		DE590E3B20313AD20069BAB2 /* TinderCardCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				DE590E3C20313B0C0069BAB2 /* TinderCardCollectionViewCell.swift */,
+				DE590E3D20313B0C0069BAB2 /* TinderCardCollectionViewCell.xib */,
+			);
+			path = TinderCardCollectionViewCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -404,6 +426,7 @@
 				DE218943202B7BCC00B0E5C0 /* rakuten_recipe_category_list.csv in Resources */,
 				DE2189352026092800B0E5C0 /* TinderCardSetView.xib in Resources */,
 				DE2188F82018146F00B0E5C0 /* Assets.xcassets in Resources */,
+				DE590E3F20313B0C0069BAB2 /* TinderCardCollectionViewCell.xib in Resources */,
 				DE2188F62018146F00B0E5C0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -497,6 +520,7 @@
 				DE2189372026096200B0E5C0 /* TinderCardSetView.swift in Sources */,
 				DE218949202F840300B0E5C0 /* RecipeModel.swift in Sources */,
 				DE2189202019F19E00B0E5C0 /* CollectionViewTinderViewController.swift in Sources */,
+				DE590E3E20313B0C0069BAB2 /* TinderCardCollectionViewCell.swift in Sources */,
 				DE218922201E06C700B0E5C0 /* PureViewTinderViewController.swift in Sources */,
 				DE2188F32018146F00B0E5C0 /* ViewController.swift in Sources */,
 				DE21893B20262E1500B0E5C0 /* TinderCardDefaultSettings.swift in Sources */,
