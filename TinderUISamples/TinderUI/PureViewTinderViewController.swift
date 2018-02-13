@@ -25,6 +25,7 @@ class PureViewTinderViewController: UIViewController, SFSafariViewControllerDele
 
         setupRecipePresenter()
         setupAddCardButton()
+        setupDismissButton()
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,20 +36,28 @@ class PureViewTinderViewController: UIViewController, SFSafariViewControllerDele
 
     // カードを新しく追加するボタン押下時に実行されるアクションに関する設定を行う
     @objc private func addCardButtonTapped() {
-
         presenter.getRecipes()
+    }
+
+    // 戻るボタン押下時に実行されるアクションに関する設定を行う
+    @objc private func dismissButtonTapped() {
+        dismiss(animated: true, completion: nil)
     }
 
     // カードを新しく追加するボタンに関する設定を行う
     private func setupAddCardButton() {
-
         self.navigationItem.rightBarButtonItem =
             UIBarButtonItem(title: "追加!", style: .done, target: self, action: #selector(self.addCardButtonTapped))
     }
-    
+
+    // 戻るボタンに関する設定を行う
+    private func setupDismissButton() {
+        self.navigationItem.leftBarButtonItem =
+            UIBarButtonItem(title: "戻る", style: .done, target: self, action: #selector(self.dismissButtonTapped))
+    }
+
     // Presenterとの接続に関する設定を行う
     private func setupRecipePresenter() {
-
         presenter = RecipePresenter(presenter: self)
         presenter.getRecipes()
     }
@@ -93,7 +102,6 @@ class PureViewTinderViewController: UIViewController, SFSafariViewControllerDele
 
     // 画面上にあるカードの山のうち、一番上にあるViewのみを操作できるようにする
     fileprivate func enableUserInteractionToFirstCardSetView() {
-
         if !tinderCardSetViewList.isEmpty {
             if let firsttTinderCardSetView = tinderCardSetViewList.first {
                 firsttTinderCardSetView.isUserInteractionEnabled = true
@@ -132,7 +140,6 @@ extension PureViewTinderViewController: RecipePresenterProtocol {
     func bindRecipes(_ recipes: [RecipeModel]) {
 
         guard tinderCardSetViewList.count + recipes.count < tinderCardSetViewCountLimit else {
-
             showAlertControllerWith(title: "表示データを制限しています", message: "この画面内に追加できるレシピデータの総数は合計16件までとなっておりますのでご注意下さい。")
             return
         }
@@ -143,14 +150,12 @@ extension PureViewTinderViewController: RecipePresenterProtocol {
 
     // レシピデータ取得に失敗した際の処理
     func showErrorMessage() {
-
         showAlertControllerWith(title: "通信時にエラーが発生しました", message: "データの取得に失敗しました。通信状態の良い場所かWift等ネットワークに接続した状態で再度お試し下さい。")
     }
 
     // MARK: - Private Function
 
     private func showAlertControllerWith(title: String, message: String) {
-
         let errorAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         errorAlert.addAction(
             UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)

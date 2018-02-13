@@ -25,6 +25,9 @@ class TinderCardCollectionViewLayout: UICollectionViewLayout {
     override func prepare() {
         super.prepare()
 
+        // 設定したレイアウト属性を事前計算処理前にリセットする
+        layout.removeAll()
+
         // UICollectionViewの要素数を取得する
         var numberOfItemCount: Int = 0
         if let targetCollectionView = collectionView {
