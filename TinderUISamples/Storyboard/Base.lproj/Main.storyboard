@@ -35,7 +35,7 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
                                 <state key="normal" title="No.2 ) UICollectionView &amp; UILongPressGesture"/>
                                 <connections>
-                                    <segue destination="JiQ-pN-wbJ" kind="presentation" id="m2f-Mw-JRF"/>
+                                    <segue destination="yfu-nO-ooF" kind="presentation" id="n8v-Fh-5qe"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TinderUIのサンプル2種盛合せ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kJF-X6-ooy">
@@ -56,7 +56,7 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
                                 <state key="normal" title="No.1 ) UIView &amp; UIPangesture"/>
                                 <connections>
-                                    <segue destination="yfu-nO-ooF" kind="presentation" id="pw6-5d-QZ3"/>
+                                    <segue destination="JiQ-pN-wbJ" kind="presentation" id="Pfl-8V-lZj"/>
                                 </connections>
                             </button>
                         </subviews>
