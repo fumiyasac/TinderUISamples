@@ -33,7 +33,7 @@
                                     <constraint firstAttribute="height" constant="55" id="hQK-fW-fBh"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
-                                <state key="normal" title="No.2 ) UICollectionView &amp; UILongPressGesture"/>
+                                <state key="normal" title="View Sample of No.2"/>
                                 <connections>
                                     <segue destination="yfu-nO-ooF" kind="presentation" id="n8v-Fh-5qe"/>
                                 </connections>
@@ -48,26 +48,44 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iOf-B7-zpt">
-                                <rect key="frame" x="16" y="482" width="343" height="55"/>
+                                <rect key="frame" x="16" y="426" width="343" height="55"/>
                                 <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="ix8-tC-7Ml"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
-                                <state key="normal" title="No.1 ) UIView &amp; UIPangesture"/>
+                                <state key="normal" title="View Sample of No.1"/>
                                 <connections>
                                     <segue destination="JiQ-pN-wbJ" kind="presentation" id="Pfl-8V-lZj"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UIView + UIPanGestureRecognizer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a0t-K9-KKD">
+                                <rect key="frame" x="16" y="395" width="343" height="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UICollectionView + UILongPressGestureRecognizer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ni1-MA-fWx">
+                                <rect key="frame" x="16" y="531" width="343" height="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Ism-a3-wGv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="38H-pW-YRp"/>
+                            <constraint firstItem="a0t-K9-KKD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="8ee-4r-SfW"/>
+                            <constraint firstItem="iOf-B7-zpt" firstAttribute="top" secondItem="a0t-K9-KKD" secondAttribute="bottom" constant="16" id="974-Fe-y7k"/>
                             <constraint firstItem="iOf-B7-zpt" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="TBT-YJ-XIx"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="iOf-B7-zpt" secondAttribute="trailing" constant="16" id="XfZ-FX-iQg"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ni1-MA-fWx" secondAttribute="trailing" constant="16" id="YU2-e4-fGf"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="a0t-K9-KKD" secondAttribute="trailing" constant="16" id="cuM-KA-E5S"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Ism-a3-wGv" secondAttribute="bottom" constant="50" id="jjf-u4-L8w"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="kJF-X6-ooy" secondAttribute="trailing" constant="16" id="kQR-ve-DOH"/>
-                            <constraint firstItem="Ism-a3-wGv" firstAttribute="top" secondItem="iOf-B7-zpt" secondAttribute="bottom" constant="25" id="sgK-Vs-zYg"/>
+                            <constraint firstItem="Ni1-MA-fWx" firstAttribute="top" secondItem="iOf-B7-zpt" secondAttribute="bottom" constant="50" id="n0v-bN-m1I"/>
+                            <constraint firstItem="Ni1-MA-fWx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="nVA-0a-88m"/>
+                            <constraint firstItem="Ism-a3-wGv" firstAttribute="top" secondItem="Ni1-MA-fWx" secondAttribute="bottom" constant="16" id="sPc-Cs-hDZ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ism-a3-wGv" secondAttribute="trailing" constant="16" id="tnR-a7-csc"/>
                             <constraint firstItem="kJF-X6-ooy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="60" id="vqu-2h-Tgv"/>
                             <constraint firstItem="kJF-X6-ooy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="yhc-AD-0nf"/>

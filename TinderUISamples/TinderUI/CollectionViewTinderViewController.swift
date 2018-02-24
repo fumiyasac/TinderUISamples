@@ -174,6 +174,12 @@ extension CollectionViewTinderViewController: UICollectionViewDelegate, UICollec
         let centerX = pressPoint.x
         let centerY = pressPoint.y
 
+        // ドラッグ可能なImageViewとぶつかる範囲の設定
+        let minX: CGFloat = 75.0
+        let maxX: CGFloat = UIScreen.main.bounds.width - minX
+        let minY: CGFloat = 100.0
+        let maxY: CGFloat = UIScreen.main.bounds.height - minY
+
         // 長押し対象のセルに配置されていたものを格納するための変数
         var targetCell: TinderCardCollectionViewCell? = nil
 
@@ -210,12 +216,6 @@ extension CollectionViewTinderViewController: UICollectionViewDelegate, UICollec
 
             draggableImageView.center = CGPoint(x: centerX, y: centerY)
             draggableImageView.transform = transforms
-            
-            // ドラッグ可能なImageViewとぶつかる範囲の設定
-            let minX: CGFloat = 75.0
-            let maxX: CGFloat = UIScreen.main.bounds.width - minX
-            let minY: CGFloat = 100.0
-            let maxY: CGFloat = UIScreen.main.bounds.height - minY
 
             // Debug.
             //print("x:\(minX) ~ \(maxX), y:\(minY) ~ \(maxY)");
@@ -228,19 +228,71 @@ extension CollectionViewTinderViewController: UICollectionViewDelegate, UICollec
         // UILongPressGestureRecognizerが終了した際の処理
         } else if sender.state == UIGestureRecognizerState.ended {
 
-            // セル内のViewを表示する
-            targetCell?.isHidden = false
-
-            // 設定した領域の範囲内に中心位置がない場合は該当のレシピデータを削除 → UICollectionViewの更新
+            // 設定した領域の範囲内に中心位置がない場合は該当のレシピデータを削除してUICollectionViewを更新
             if isSelectedFlag {
-                recipeDataList.remove(at: targetTag)
-                isSelectedFlag = false
-            }
 
-            // ドラッグ可能なUIImageViewをお掃除する
-            draggableImageView.image = nil
-            draggableImageView.removeFromSuperview()
+                // 左右のどちらにスワイプするかを決定する
+                let isSwipeLeft  = (minX > pressPoint.x)
+                let isSwipeRight = (pressPoint.x > maxX)
+
+                var swipeOutPosX: CGFloat = 0
+                let swipeOutPosY: CGFloat = self.draggableImageView.center.y
+
+                UIView.animate(withDuration: TinderCardDefaultSettings.durationOfSwipeOut / 2.5, animations: {
+
+                    if isSwipeLeft {
+                        swipeOutPosX = -UIScreen.main.bounds.width * 2.0
+                    } else if isSwipeRight {
+                        swipeOutPosX = UIScreen.main.bounds.width * 2.0
+                    }
+
+                    self.draggableImageView.center = CGPoint(x: swipeOutPosX, y: swipeOutPosY)
+
+                }, completion: { _ in
+
+                    if isSwipeLeft {
+                        self.swipeOutLeftDraggableImageView()
+                    } else if isSwipeRight {
+                        self.swipeOutRightDraggableImageView()
+                    }
+
+                    self.recipeDataList.remove(at: targetTag)
+                    self.removeDraggableImageView()
+
+                    // セル内のViewを表示する
+                    targetCell?.isHidden = false
+                })
+                isSelectedFlag = false
+
+            // 設定した領域の範囲内に中心位置がある場合はUICollectionViewの表示を元に戻す
+            } else {
+
+                removeDraggableImageView()
+
+                // セル内のViewを表示する
+                targetCell?.isHidden = false
+            }
         }
+    }
+
+    // ドラッグ可能なUIImageViewを左側の画面外へ動かす
+    private func swipeOutLeftDraggableImageView() {
+
+        // Debug.
+        //print("左方向へのスワイプ完了しました。")
+    }
+
+    // ドラッグ可能なUIImageViewを右側の画面外へ動かす
+    private func swipeOutRightDraggableImageView() {
+
+        // Debug.
+        //print("右方向へのスワイプ完了しました。")
+    }
+
+    // ドラッグ可能なUIImageViewを画面から消去する
+    private func removeDraggableImageView() {
+        draggableImageView.image = nil
+        draggableImageView.removeFromSuperview()
     }
 
     // ドラッグ可能なUIImageViewに関する初期設定をする
