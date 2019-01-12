@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "81DD2A61BBF60BE5F6ED77F2029CE840"
+               BlueprintIdentifier = "AC9229ABBDB94707ED08903BDBD1862C"
                BuildableName = "Pods_TinderUISamples.framework"
                BlueprintName = "Pods-TinderUISamples"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -26,7 +26,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
@@ -37,7 +36,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -47,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "81DD2A61BBF60BE5F6ED77F2029CE840"
+            BlueprintIdentifier = "AC9229ABBDB94707ED08903BDBD1862C"
             BuildableName = "Pods_TinderUISamples.framework"
             BlueprintName = "Pods-TinderUISamples"
             ReferencedContainer = "container:Pods.xcodeproj">

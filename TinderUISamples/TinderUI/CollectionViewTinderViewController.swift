@@ -108,7 +108,7 @@ extension CollectionViewTinderViewController: RecipePresenterProtocol {
     private func showAlertControllerWith(title: String, message: String) {
         let errorAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         errorAlert.addAction(
-            UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
+            UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
         )
         self.present(errorAlert, animated: true, completion: nil)
     }
@@ -195,7 +195,7 @@ extension CollectionViewTinderViewController: UICollectionViewDelegate, UICollec
         }
 
         // UILongPressGestureRecognizerが開始された際の処理
-        if sender.state == UIGestureRecognizerState.began {
+        if sender.state == UIGestureRecognizer.State.began {
 
             guard let targetView = targetCell?.subviews.first else { return }
 
@@ -207,7 +207,7 @@ extension CollectionViewTinderViewController: UICollectionViewDelegate, UICollec
             view.addSubview(draggableImageView)
             
         // UILongPressGestureRecognizerが動作中の際の処理
-        } else if sender.state == UIGestureRecognizerState.changed {
+        } else if sender.state == UIGestureRecognizer.State.changed {
 
             // 中心位置の更新と回転量の反映を行う
             let diffOfCenterX = pressPoint.x - (UIScreen.main.bounds.size.width / 2)
@@ -226,7 +226,7 @@ extension CollectionViewTinderViewController: UICollectionViewDelegate, UICollec
             isSelectedFlag = (containsOfTargetRect) ? false : true
 
         // UILongPressGestureRecognizerが終了した際の処理
-        } else if sender.state == UIGestureRecognizerState.ended {
+        } else if sender.state == UIGestureRecognizer.State.ended {
 
             // 設定した領域の範囲内に中心位置がない場合は該当のレシピデータを削除してUICollectionViewを更新
             if isSelectedFlag {

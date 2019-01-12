@@ -90,7 +90,7 @@ class PureViewTinderViewController: UIViewController, SFSafariViewControllerDele
 
             // 現在表示されているカードの背面へ新たに作成したカードを追加する
             view.addSubview(tinderCardSetView)
-            view.sendSubview(toBack: tinderCardSetView)
+            view.sendSubviewToBack(tinderCardSetView)
         }
 
         // MEMO: 配列(tinderCardSetViewList)に格納されているViewのうち、先頭にあるViewのみを操作可能にする
@@ -158,7 +158,7 @@ extension PureViewTinderViewController: RecipePresenterProtocol {
     private func showAlertControllerWith(title: String, message: String) {
         let errorAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         errorAlert.addAction(
-            UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
+            UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
         )
         self.present(errorAlert, animated: true, completion: nil)
     }
