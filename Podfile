@@ -15,4 +15,5 @@ target 'TinderUISamples' do
   pod 'Alamofire'
   pod 'SwiftyJSON'
   pod 'Kingfisher'
+  pod 'PromiseKit'
 end
