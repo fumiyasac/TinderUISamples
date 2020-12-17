@@ -4,7 +4,7 @@
 //
 //  Created by onevcat on 2018/11/17.
 //
-//  Copyright (c) 2018 Wei Wang <onevcat@gmail.com>
+//  Copyright (c) 2019 Wei Wang <onevcat@gmail.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -75,8 +75,23 @@ public enum Source {
     public var url: URL? {
         switch self {
         case .network(let resource): return resource.downloadURL
-        // `ImageDataProvider` does not provide a URL. All it cares is how to get the data back.
-        case .provider(_): return nil
+        case .provider(let provider): return provider.contentURL
         }
+    }
+}
+
+extension Source {
+    var asResource: Resource? {
+        guard case .network(let resource) = self else {
+            return nil
+        }
+        return resource
+    }
+
+    var asProvider: ImageDataProvider? {
+        guard case .provider(let provider) = self else {
+            return nil
+        }
+        return provider
     }
 }

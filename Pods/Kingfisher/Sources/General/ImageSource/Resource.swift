@@ -4,7 +4,7 @@
 //
 //  Created by Wei Wang on 15/4/6.
 //
-//  Copyright (c) 2018 Wei Wang <onevcat@gmail.com>
+//  Copyright (c) 2019 Wei Wang <onevcat@gmail.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -36,6 +36,18 @@ public protocol Resource {
     
     /// The target image URL.
     var downloadURL: URL { get }
+}
+
+extension Resource {
+
+    /// Converts `self` to a valid `Source` based on its `downloadURL` scheme. A `.provider` with
+    /// `LocalFileImageDataProvider` associated will be returned if the URL points to a local file. Otherwise,
+    /// `.network` is returned.
+    public func convertToSource() -> Source {
+        return downloadURL.isFileURL ?
+            .provider(LocalFileImageDataProvider(fileURL: downloadURL, cacheKey: cacheKey)) :
+            .network(self)
+    }
 }
 
 /// ImageResource is a simple combination of `downloadURL` and `cacheKey`.

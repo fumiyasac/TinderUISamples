@@ -4,7 +4,7 @@
 //
 //  Created by onevcat on 2018/09/28.
 //
-//  Copyright (c) 2018 Wei Wang <onevcat@gmail.com>
+//  Copyright (c) 2019 Wei Wang <onevcat@gmail.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@
 
 import CoreGraphics
 
-extension CGSize: KingfisherCompatible {}
+extension CGSize: KingfisherCompatibleValue {}
 extension KingfisherWrapper where Base == CGSize {
     
     /// Returns a size by resizing the `base` size to a target size under a given content mode.

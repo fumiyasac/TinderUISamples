@@ -4,7 +4,7 @@
 //
 //  Created by onevcat on 2018/11/13.
 //
-//  Copyright (c) 2018 Wei Wang <onevcat@gmail.com>
+//  Copyright (c) 2019 Wei Wang <onevcat@gmail.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -48,6 +48,13 @@ public protocol ImageDataProvider {
     /// `ImageSettingErrorReason` will be finally thrown out to you as the `KingfisherError`
     /// from the framework.
     func data(handler: @escaping (Result<Data, Error>) -> Void)
+
+    /// The content URL represents this provider, if exists.
+    var contentURL: URL? { get }
+}
+
+public extension ImageDataProvider {
+    var contentURL: URL? { return nil }
 }
 
 /// Represents an image data provider for loading from a local file URL on disk.
@@ -80,7 +87,12 @@ public struct LocalFileImageDataProvider: ImageDataProvider {
     public var cacheKey: String
 
     public func data(handler: (Result<Data, Error>) -> Void) {
-        handler( Result { try Data(contentsOf: fileURL) } )
+        handler(Result(catching: { try Data(contentsOf: fileURL) }))
+    }
+
+    /// The URL of the local file on the disk.
+    public var contentURL: URL? {
+        return fileURL
     }
 }
 

@@ -3,17 +3,19 @@
 </p>
 
 <p align="center">
-<a href="https://travis-ci.org/onevcat/Kingfisher"><img src="https://img.shields.io/travis/onevcat/Kingfisher/master.svg"></a>
-<a href="https://github.com/Carthage/Carthage/"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat"></a>
+<a href="https://github.com/onevcat/Kingfisher/actions?query=workflow%3Abuild"><img src="https://github.com/onevcat/kingfisher/workflows/build/badge.svg?branch=master"></a>
 <a href="http://onevcat.github.io/Kingfisher/"><img src="https://img.shields.io/cocoapods/v/Kingfisher.svg?style=flat"></a>
+<a href="https://github.com/Carthage/Carthage/"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat"></a>
+<a href="https://swift.org/package-manager/"><img src="https://img.shields.io/badge/SPM-supported-DE5C43.svg?style=flat"></a>
+<a href="https://github.com/JamitLabs/Accio"><img src="https://img.shields.io/badge/Accio-supported-0A7CF5.svg?style=flat"></a>
+<br />
 <a href="https://raw.githubusercontent.com/onevcat/Kingfisher/master/LICENSE"><img src="https://img.shields.io/cocoapods/l/Kingfisher.svg?style=flat"></a>
 <a href="http://onevcat.github.io/Kingfisher/"><img src="https://img.shields.io/cocoapods/p/Kingfisher.svg?style=flat"></a>
-<a href="https://codebeat.co/projects/github-com-onevcat-kingfisher"><img alt="codebeat badge" src="https://codebeat.co/assets/svg/badges/A-398b39-669406e9e1b136187b91af587d4092b0160370f271f66a651f444b990c2730e9.svg" /></a>
 <a href="#backers" alt="sponsors on Open Collective"><img src="https://opencollective.com/Kingfisher/backers/badge.svg" /></a>
 <a href="#sponsors" alt="Sponsors on Open Collective"><img src="https://opencollective.com/Kingfisher/sponsors/badge.svg" /></a>
 </p>
 
-Kingfisher is a powerful, pure-Swift library for downloading and caching images from the web. It provides you a chance to use a pure-Swift alternative in your next app.
+Kingfisher is a powerful, pure-Swift library for downloading and caching images from the web. It provides you a chance to use a pure-Swift way to work with remote images in your next app.
 
 ## Features
 
@@ -25,10 +27,11 @@ Kingfisher is a powerful, pure-Swift library for downloading and caching images 
 - [x] Cancelable downloading and auto-reusing previous downloaded content to improve performance.
 - [x] Independent components. Use the downloader, caching system and image processors separately as you need.
 - [x] Prefetching images and showing them from cache to boost your app.
-- [x] View extensions for `UIImageView`, `NSImage`, `NSButton` and `UIButton` to directly set an image from a URL.
+- [x] View extensions for `UIImageView`, `NSImageView`, `NSButton` and `UIButton` to directly set an image from a URL.
 - [x] Built-in transition animation when setting images.
 - [x] Customizable placeholder and indicator while loading images.
 - [x] Extensible image processing and image format easily.
+- [x] SwiftUI support.
 
 ### Kingfisher 101
 
@@ -40,6 +43,16 @@ imageView.kf.setImage(with: url)
 ```
 
 Kingfisher will download the image from `url`, send it to both memory cache and disk cache, and display it in `imageView`. When you set with the same URL later, the image will be retrieved from cache and shown immediately.
+
+It also works if you use SwiftUI:
+
+```swift
+import KingfisherSwiftUI
+
+var body: some View {
+    KFImage(URL(string: "https://example.com/image.png")!)
+}
+```
 
 ### A More Advanced Example
 
@@ -55,11 +68,11 @@ With the powerful options, you can do hard tasks with Kingfisher in a simple way
 
 ```swift
 let url = URL(string: "https://example.com/high_resolution_image.png")
-let processor = DownsamplingImageProcessor(size: imageView.size)
-             >> RoundCornerImageProcessor(cornerRadius: 20)
+let processor = DownsamplingImageProcessor(size: imageView.bounds.size)
+             |> RoundCornerImageProcessor(cornerRadius: 20)
 imageView.kf.indicatorType = .activity
 imageView.kf.setImage(
-    with: resource,
+    with: url,
     placeholder: UIImage(named: "placeholderImage"),
     options: [
         .processor(processor),
@@ -78,11 +91,11 @@ imageView.kf.setImage(
 }
 ```
 
-It is really a very common situation I will meet in my daily work. Think about how many lines you need to write if without Kingfisher. You will fall in love with it!
+It is really a very common situation I can meet in my daily work. Think about how many lines you need to write without Kingfisher. You will fall in love with it if you give it a try!
 
 ### Learn More
 
-To learn the using of Kingfisher by more examples, take a look at the [Cheat Sheet](https://github.com/onevcat/Kingfisher/wiki/Cheat-Sheet). There we summarized most common tasks in Kingfisher, you can get a better idea on what this framework can do. There are also some tips for performance in the same page, remember to check them too.
+To learn the use of Kingfisher by more examples, take a look at the [Cheat Sheet](https://github.com/onevcat/Kingfisher/wiki/Cheat-Sheet). There we summarized most common tasks in Kingfisher, you can get a better idea on what this framework can do. There are also some tips for performance in the same page, remember to check them too.
 
 ## Requirements
 

@@ -4,7 +4,7 @@
 //
 //  Created by Ethan Gill on 2017/11/28.
 //
-//  Copyright (c) 2018 Ethan Gill <ethan.gill@me.com>
+//  Copyright (c) 2019 Ethan Gill <ethan.gill@me.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -40,28 +40,7 @@ public protocol ImageModifier {
     /// - Note: The return value will be unmodified if modifying is not possible on
     ///         the current platform.
     /// - Note: Most modifiers support UIImage or NSImage, but not CGImage.
-    func modify(_ image: Image) -> Image
-}
-
-extension ImageModifier {
-    func modify(_ image: Image?) -> Image? {
-        guard let image = image else {
-            return nil
-        }
-        return modify(image)
-    }
-}
-
-/// The default modifier.
-/// It does nothing and returns the image as is.
-public struct DefaultImageModifier: ImageModifier {
-
-    /// A default `DefaultImageModifier` which can be used everywhere.
-    public static let `default` = DefaultImageModifier()
-    private init() {}
-
-    /// Modifies an input `Image`. See `ImageModifier` protocol for more.
-    public func modify(_ image: Image) -> Image { return image }
+    func modify(_ image: KFCrossPlatformImage) -> KFCrossPlatformImage
 }
 
 /// A wrapper for creating an `ImageModifier` easier.
@@ -71,15 +50,15 @@ public struct AnyImageModifier: ImageModifier {
 
     /// A block which modifies images, or returns the original image
     /// if modification cannot be performed with an error.
-    let block: (Image) throws -> Image
+    let block: (KFCrossPlatformImage) throws -> KFCrossPlatformImage
 
     /// Creates an `AnyImageModifier` with a given `modify` block.
-    public init(modify: @escaping (Image) throws -> Image) {
+    public init(modify: @escaping (KFCrossPlatformImage) throws -> KFCrossPlatformImage) {
         block = modify
     }
 
     /// Modify an input `Image`. See `ImageModifier` protocol for more.
-    public func modify(_ image: Image) -> Image {
+    public func modify(_ image: KFCrossPlatformImage) -> KFCrossPlatformImage {
         return (try? block(image)) ?? image
     }
 }
@@ -101,7 +80,7 @@ public struct RenderingModeImageModifier: ImageModifier {
     }
 
     /// Modify an input `Image`. See `ImageModifier` protocol for more.
-    public func modify(_ image: Image) -> Image {
+    public func modify(_ image: KFCrossPlatformImage) -> KFCrossPlatformImage {
         return image.withRenderingMode(renderingMode)
     }
 }
@@ -113,7 +92,7 @@ public struct FlipsForRightToLeftLayoutDirectionImageModifier: ImageModifier {
     public init() {}
 
     /// Modify an input `Image`. See `ImageModifier` protocol for more.
-    public func modify(_ image: Image) -> Image {
+    public func modify(_ image: KFCrossPlatformImage) -> KFCrossPlatformImage {
         return image.imageFlippedForRightToLeftLayoutDirection()
     }
 }
@@ -130,7 +109,7 @@ public struct AlignmentRectInsetsImageModifier: ImageModifier {
     }
 
     /// Modify an input `Image`. See `ImageModifier` protocol for more.
-    public func modify(_ image: Image) -> Image {
+    public func modify(_ image: KFCrossPlatformImage) -> KFCrossPlatformImage {
         return image.withAlignmentRectInsets(alignmentInsets)
     }
 }

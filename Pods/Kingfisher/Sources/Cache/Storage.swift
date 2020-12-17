@@ -4,7 +4,7 @@
 //
 //  Created by Wei Wang on 2018/10/15.
 //
-//  Copyright (c) 2018年 Wei Wang <onevcat@gmail.com>
+//  Copyright (c) 2019 Wei Wang <onevcat@gmail.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +25,14 @@
 //  THE SOFTWARE.
 
 import Foundation
+
+/// Constants for some time intervals
+struct TimeConstants {
+    static let secondsInOneMinute = 60
+    static let minutesInOneHour = 60
+    static let hoursInOneDay = 24
+    static let secondsInOneDay = 86_400
+}
 
 /// Represents the expiration strategy used in storage.
 ///
@@ -47,10 +55,15 @@ public enum StorageExpiration {
     func estimatedExpirationSince(_ date: Date) -> Date {
         switch self {
         case .never: return .distantFuture
-        case .seconds(let seconds): return date.addingTimeInterval(seconds)
-        case .days(let days): return date.addingTimeInterval(TimeInterval(60 * 60 * 24 * days))
-        case .date(let ref): return ref
-        case .expired: return .distantPast
+        case .seconds(let seconds):
+            return date.addingTimeInterval(seconds)
+        case .days(let days):
+            let duration = TimeInterval(TimeConstants.secondsInOneDay) * TimeInterval(days)
+            return date.addingTimeInterval(duration)
+        case .date(let ref):
+            return ref
+        case .expired:
+            return .distantPast
         }
     }
     
@@ -66,11 +79,25 @@ public enum StorageExpiration {
         switch self {
         case .never: return .infinity
         case .seconds(let seconds): return seconds
-        case .days(let days): return TimeInterval(60 * 60 * 24 * days)
+        case .days(let days): return TimeInterval(TimeConstants.secondsInOneDay) * TimeInterval(days)
         case .date(let ref): return ref.timeIntervalSinceNow
         case .expired: return -(.infinity)
         }
     }
+}
+
+/// Represents the expiration extending strategy used in storage to after access.
+///
+/// - none: The item expires after the original time, without extending after access.
+/// - cacheTime: The item expiration extends by the original cache time after each access.
+/// - expirationTime: The item expiration extends by the provided time after each access.
+public enum ExpirationExtending {
+    /// The item expires after the original time, without extending after access.
+    case none
+    /// The item expiration extends by the original cache time after each access.
+    case cacheTime
+    /// The item expiration extends by the provided time after each access.
+    case expirationTime(_ expiration: StorageExpiration)
 }
 
 /// Represents types which cost in memory can be calculated.

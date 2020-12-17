@@ -4,7 +4,7 @@
 //
 //  Created by Wei Wang on 2018/10/15.
 //
-//  Copyright (c) 2018年 Wei Wang <onevcat@gmail.com>
+//  Copyright (c) 2019 Wei Wang <onevcat@gmail.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -43,9 +43,12 @@ public enum DiskStorage {
         public var config: Config
 
         // The final storage URL on disk, with `name` and `cachePathBlock` considered.
-        let directoryURL: URL
+        public let directoryURL: URL
 
         let metaChangingQueue: DispatchQueue
+
+        var maybeCached : Set<String>?
+        let maybeCachedCheckingQueue = DispatchQueue(label: "com.onevcat.Kingfisher.maybeCachedCheckingQueue")
 
         /// Creates a disk storage with the given `DiskStorage.Config`.
         ///
@@ -72,6 +75,19 @@ public enum DiskStorage {
             metaChangingQueue = DispatchQueue(label: cacheName)
 
             try prepareDirectory()
+
+            maybeCachedCheckingQueue.async {
+                do {
+                    self.maybeCached = Set()
+                    try config.fileManager.contentsOfDirectory(atPath: self.directoryURL.path).forEach { fileName in
+                        self.maybeCached?.insert(fileName)
+                    }
+                } catch {
+                    // Just disable the functionality if we fail to initialize it properly. This will just revert to
+                    // the behavior which is to check file existence on disk directly.
+                    self.maybeCached = nil
+                }
+            }
         }
 
         // Creates the storage folder.
@@ -108,6 +124,13 @@ public enum DiskStorage {
             }
 
             let fileURL = cacheFileURL(forKey: key)
+            do {
+                try data.write(to: fileURL)
+            } catch {
+                throw KingfisherError.cacheError(
+                    reason: .cannotCreateCacheFile(fileURL: fileURL, key: key, data: data, error: error)
+                )
+            }
 
             let now = Date()
             let attributes: [FileAttributeKey : Any] = [
@@ -116,17 +139,44 @@ public enum DiskStorage {
                 // The estimated expiration date.
                 .modificationDate: expiration.estimatedExpirationSinceNow.fileAttributeDate
             ]
-            config.fileManager.createFile(atPath: fileURL.path, contents: data, attributes: attributes)
+            do {
+                try config.fileManager.setAttributes(attributes, ofItemAtPath: fileURL.path)
+            } catch {
+                try? config.fileManager.removeItem(at: fileURL)
+                throw KingfisherError.cacheError(
+                    reason: .cannotSetCacheFileAttribute(
+                        filePath: fileURL.path,
+                        attributes: attributes,
+                        error: error
+                    )
+                )
+            }
+
+            maybeCachedCheckingQueue.async {
+                self.maybeCached?.insert(fileURL.lastPathComponent)
+            }
         }
 
-        func value(forKey key: String) throws -> T? {
-            return try value(forKey: key, referenceDate: Date(), actuallyLoad: true)
+        func value(forKey key: String, extendingExpiration: ExpirationExtending = .cacheTime) throws -> T? {
+            return try value(forKey: key, referenceDate: Date(), actuallyLoad: true, extendingExpiration: extendingExpiration)
         }
 
-        func value(forKey key: String, referenceDate: Date, actuallyLoad: Bool) throws -> T? {
+        func value(
+            forKey key: String,
+            referenceDate: Date,
+            actuallyLoad: Bool,
+            extendingExpiration: ExpirationExtending) throws -> T?
+        {
             let fileManager = config.fileManager
             let fileURL = cacheFileURL(forKey: key)
             let filePath = fileURL.path
+
+            let fileMaybeCached = maybeCachedCheckingQueue.sync {
+                return maybeCached?.contains(fileURL.lastPathComponent) ?? true
+            }
+            guard fileMaybeCached else {
+                return nil
+            }
             guard fileManager.fileExists(atPath: filePath) else {
                 return nil
             }
@@ -148,7 +198,9 @@ public enum DiskStorage {
             do {
                 let data = try Data(contentsOf: fileURL)
                 let obj = try T.fromData(data)
-                metaChangingQueue.async { meta.extendExpiration(with: fileManager) }
+                metaChangingQueue.async {
+                    meta.extendExpiration(with: fileManager, extendingExpiration: extendingExpiration)
+                }
                 return obj
             } catch {
                 throw KingfisherError.cacheError(reason: .cannotLoadDataFromDisk(url: fileURL, error: error))
@@ -161,10 +213,13 @@ public enum DiskStorage {
 
         func isCached(forKey key: String, referenceDate: Date) -> Bool {
             do {
-                guard let _ = try value(forKey: key, referenceDate: referenceDate, actuallyLoad: false) else {
-                    return false
-                }
-                return true
+                let result = try value(
+                    forKey: key,
+                    referenceDate: referenceDate,
+                    actuallyLoad: false,
+                    extendingExpiration: .none
+                )
+                return result != nil
             } catch {
                 return false
             }
@@ -190,17 +245,32 @@ public enum DiskStorage {
             }
         }
 
-        func cacheFileURL(forKey key: String) -> URL {
+        /// The URL of the cached file with a given computed `key`.
+        ///
+        /// - Note:
+        /// This method does not guarantee there is an image already cached in the returned URL. It just gives your
+        /// the URL that the image should be if it exists in disk storage, with the give key.
+        ///
+        /// - Parameter key: The final computed key used when caching the image. Please note that usually this is not
+        /// the `cacheKey` of an image `Source`. It is the computed key with processor identifier considered.
+        public func cacheFileURL(forKey key: String) -> URL {
             let fileName = cacheFileName(forKey: key)
-            return directoryURL.appendingPathComponent(fileName)
+            return directoryURL.appendingPathComponent(fileName, isDirectory: false)
         }
 
         func cacheFileName(forKey key: String) -> String {
-            let hashedKey = key.kf.md5
-            if let ext = config.pathExtension {
-                return "\(hashedKey).\(ext)"
+            if config.usesHashedFileName {
+                let hashedKey = key.kf.md5
+                if let ext = config.pathExtension {
+                    return "\(hashedKey).\(ext)"
+                }
+                return hashedKey
+            } else {
+                if let ext = config.pathExtension {
+                    return "\(key).\(ext)"
+                }
+                return key
             }
-            return hashedKey
         }
 
         func allFileURLs(for propertyKeys: [URLResourceKey]) throws -> [URL] {
@@ -310,6 +380,9 @@ extension DiskStorage {
         /// Default is `nil`, means that the cache file does not contain a file extension.
         public var pathExtension: String? = nil
 
+        /// Default is `true`, means that the cache file name will be hashed before storing.
+        public var usesHashedFileName = true
+
         let name: String
         let fileManager: FileManager
         let directory: URL?
@@ -386,19 +459,32 @@ extension DiskStorage {
             return estimatedExpirationDate?.isPast(referenceDate: referenceDate) ?? true
         }
         
-        func extendExpiration(with fileManager: FileManager) {
+        func extendExpiration(with fileManager: FileManager, extendingExpiration: ExpirationExtending) {
             guard let lastAccessDate = lastAccessDate,
                   let lastEstimatedExpiration = estimatedExpirationDate else
             {
                 return
             }
-            
-            let originalExpiration: StorageExpiration =
-                .seconds(lastEstimatedExpiration.timeIntervalSince(lastAccessDate))
-            let attributes: [FileAttributeKey : Any] = [
-                .creationDate: Date().fileAttributeDate,
-                .modificationDate: originalExpiration.estimatedExpirationSinceNow.fileAttributeDate
-            ]
+
+            let attributes: [FileAttributeKey : Any]
+
+            switch extendingExpiration {
+            case .none:
+                // not extending expiration time here
+                return
+            case .cacheTime:
+                let originalExpiration: StorageExpiration =
+                    .seconds(lastEstimatedExpiration.timeIntervalSince(lastAccessDate))
+                attributes = [
+                    .creationDate: Date().fileAttributeDate,
+                    .modificationDate: originalExpiration.estimatedExpirationSinceNow.fileAttributeDate
+                ]
+            case .expirationTime(let expirationTime):
+                attributes = [
+                    .creationDate: Date().fileAttributeDate,
+                    .modificationDate: expirationTime.estimatedExpirationSinceNow.fileAttributeDate
+                ]
+            }
 
             try? fileManager.setAttributes(attributes, ofItemAtPath: url.path)
         }

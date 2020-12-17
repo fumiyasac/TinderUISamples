@@ -4,7 +4,7 @@
 //
 //  Created by Wei Wang on 16/9/14.
 //
-//  Copyright (c) 2018 Wei Wang <onevcat@gmail.com>
+//  Copyright (c) 2019 Wei Wang <onevcat@gmail.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -29,19 +29,19 @@ import ImageIO
 
 #if os(macOS)
 import AppKit
-public typealias Image = NSImage
-public typealias View = NSView
-public typealias Color = NSColor
-public typealias ImageView = NSImageView
-public typealias Button = NSButton
+public typealias KFCrossPlatformImage = NSImage
+public typealias KFCrossPlatformView = NSView
+public typealias KFCrossPlatformColor = NSColor
+public typealias KFCrossPlatformImageView = NSImageView
+public typealias KFCrossPlatformButton = NSButton
 #else
 import UIKit
-public typealias Image = UIImage
-public typealias Color = UIColor
+public typealias KFCrossPlatformImage = UIImage
+public typealias KFCrossPlatformColor = UIColor
 #if !os(watchOS)
-public typealias ImageView = UIImageView
-public typealias View = UIView
-public typealias Button = UIButton
+public typealias KFCrossPlatformImageView = UIImageView
+public typealias KFCrossPlatformView = UIView
+public typealias KFCrossPlatformButton = UIButton
 #else
 import WatchKit
 #endif
@@ -56,12 +56,15 @@ public struct KingfisherWrapper<Base> {
     }
 }
 
-/// Represents a type which is compatible with Kingfisher. You can use `kf` property to get a
+/// Represents an object type that is compatible with Kingfisher. You can use `kf` property to get a
 /// value in the namespace of Kingfisher.
-public protocol KingfisherCompatible { }
+public protocol KingfisherCompatible: AnyObject { }
 
-public extension KingfisherCompatible {
-    
+/// Represents a value type that is compatible with Kingfisher. You can use `kf` property to get a
+/// value in the namespace of Kingfisher.
+public protocol KingfisherCompatibleValue {}
+
+extension KingfisherCompatible {
     /// Gets a namespace holder for Kingfisher compatible types.
     public var kf: KingfisherWrapper<Self> {
         get { return KingfisherWrapper(self) }
@@ -69,10 +72,19 @@ public extension KingfisherCompatible {
     }
 }
 
-extension Image: KingfisherCompatible { }
+extension KingfisherCompatibleValue {
+    /// Gets a namespace holder for Kingfisher compatible types.
+    public var kf: KingfisherWrapper<Self> {
+        get { return KingfisherWrapper(self) }
+        set { }
+    }
+}
+
+extension KFCrossPlatformImage: KingfisherCompatible { }
 #if !os(watchOS)
-extension ImageView: KingfisherCompatible { }
-extension Button: KingfisherCompatible { }
+extension KFCrossPlatformImageView: KingfisherCompatible { }
+extension KFCrossPlatformButton: KingfisherCompatible { }
+extension NSTextAttachment: KingfisherCompatible { }
 #else
 extension WKInterfaceImage: KingfisherCompatible { }
 #endif

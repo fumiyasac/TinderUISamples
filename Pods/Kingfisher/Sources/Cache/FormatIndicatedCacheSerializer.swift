@@ -4,7 +4,7 @@
 //
 //  Created by Junyu Kuang on 5/28/17.
 //
-//  Copyright (c) 2018 Wei Wang <onevcat@gmail.com>
+//  Copyright (c) 2019 Wei Wang <onevcat@gmail.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +25,7 @@
 //  THE SOFTWARE.
 
 import Foundation
+import CoreGraphics
 
 /// `FormatIndicatedCacheSerializer` lets you indicate an image format for serialized caches.
 ///
@@ -55,28 +56,43 @@ public struct FormatIndicatedCacheSerializer: CacheSerializer {
     
     /// A `FormatIndicatedCacheSerializer` which converts image from and to PNG format. If the image cannot be
     /// represented by PNG format, it will fallback to its real format which is determined by `original` data.
-    public static let png = FormatIndicatedCacheSerializer(imageFormat: .PNG)
+    public static let png = FormatIndicatedCacheSerializer(imageFormat: .PNG, jpegCompressionQuality: nil)
     
     /// A `FormatIndicatedCacheSerializer` which converts image from and to JPEG format. If the image cannot be
     /// represented by JPEG format, it will fallback to its real format which is determined by `original` data.
-    public static let jpeg = FormatIndicatedCacheSerializer(imageFormat: .JPEG)
+    /// The compression quality is 1.0 when using this serializer. If you need to set a customized compression quality,
+    /// use `jpeg(compressionQuality:)`.
+    public static let jpeg = FormatIndicatedCacheSerializer(imageFormat: .JPEG, jpegCompressionQuality: 1.0)
+
+    /// A `FormatIndicatedCacheSerializer` which converts image from and to JPEG format with a settable compression
+    /// quality. If the image cannot be represented by JPEG format, it will fallback to its real format which is
+    /// determined by `original` data.
+    /// - Parameter compressionQuality: The compression quality when converting image to JPEG data.
+    public static func jpeg(compressionQuality: CGFloat) -> FormatIndicatedCacheSerializer {
+        return FormatIndicatedCacheSerializer(imageFormat: .JPEG, jpegCompressionQuality: compressionQuality)
+    }
     
     /// A `FormatIndicatedCacheSerializer` which converts image from and to GIF format. If the image cannot be
     /// represented by GIF format, it will fallback to its real format which is determined by `original` data.
-    public static let gif = FormatIndicatedCacheSerializer(imageFormat: .GIF)
+    public static let gif = FormatIndicatedCacheSerializer(imageFormat: .GIF, jpegCompressionQuality: nil)
     
     /// The indicated image format.
     private let imageFormat: ImageFormat
+
+    /// The compression quality used for loss image format (like JPEG).
+    private let jpegCompressionQuality: CGFloat?
     
     /// Creates data which represents the given `image` under a format.
-    public func data(with image: Image, original: Data?) -> Data? {
+    public func data(with image: KFCrossPlatformImage, original: Data?) -> Data? {
         
         func imageData(withFormat imageFormat: ImageFormat) -> Data? {
-            switch imageFormat {
-            case .PNG: return image.kf.pngRepresentation()
-            case .JPEG: return image.kf.jpegRepresentation(compressionQuality: 1.0)
-            case .GIF: return image.kf.gifRepresentation()
-            case .unknown: return nil
+            return autoreleasepool { () -> Data? in
+                switch imageFormat {
+                case .PNG: return image.kf.pngRepresentation()
+                case .JPEG: return image.kf.jpegRepresentation(compressionQuality: jpegCompressionQuality ?? 1.0)
+                case .GIF: return image.kf.gifRepresentation()
+                case .unknown: return nil
+                }
             }
         }
         
@@ -96,7 +112,7 @@ public struct FormatIndicatedCacheSerializer: CacheSerializer {
     }
     
     /// Same implementation as `DefaultCacheSerializer`.
-    public func image(with data: Data, options: KingfisherParsedOptionsInfo) -> Image? {
+    public func image(with data: Data, options: KingfisherParsedOptionsInfo) -> KFCrossPlatformImage? {
         return KingfisherWrapper.image(data: data, options: options.imageCreatingOptions)
     }
 }
