@@ -19,13 +19,13 @@ class RecipePresenter {
 
     var presenter: RecipePresenterProtocol!
 
-    //MARK: - Initializer
+    // MARK: - Initializer
 
     init(presenter: RecipePresenterProtocol) {
         self.presenter = presenter
     }
 
-    //MARK: - Functions
+    // MARK: - Functions
 
     // レシピデータをAPI経由で取得する
     func getRecipes() {

@@ -12,7 +12,7 @@ import SwiftyJSON
 
 struct RecipeModel {
 
-    //メンバ変数（取得したJSONレスポンスのKeyに対応する値が入る）
+    // メンバ変数（取得したJSONレスポンスのKeyに対応する値が入る）
     let recipeId: Int
     let recipeTitle: String
     let recipeUrl: String
@@ -22,7 +22,7 @@ struct RecipeModel {
     let recipeDescription: String
     let recipePublishday: String
 
-    //イニシャライザ（取得したJSONレスポンスに対して必要なものを抽出する）
+    // イニシャライザ（取得したJSONレスポンスに対して必要なものを抽出する）
     init(result: JSON) {
         self.recipeId          = result["recipeId"].int ?? 0
         self.recipeTitle       = result["recipeTitle"].string ?? ""
