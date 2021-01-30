@@ -44,27 +44,21 @@ class RecipePresenter {
         )
 
         // 楽天レシピカテゴリ別ランキングAPIへの通信処理を実行する
-        apiRequestManager.request(
-
-            // 通信成功時:
-            success: { (data: Dictionary) in
-
+        apiRequestManager.request()
+            // 成功時の処理をクロージャー内に記載する
+            .done { data in
                 // JSONデータを解析してRecipeModel型データを作成
                 let json = JSON(data)
                 let recipes: [RecipeModel] = json["result"].map{ (_, result) in
                     return RecipeModel(result: JSON(result))
                 }
-
                 // 通信成功時の処理をプロトコルを適用したViewController側で行う
                 self.presenter.bindRecipes(recipes)
-            },
-
-            // 通信失敗時:
-            fail: { (error: Error?) in
-                
+            }
+            // 失敗時の処理をクロージャー内に記載する
+            .catch { error in
                 // 通信失敗時の処理をプロトコルを適用したViewController側で行う
                 self.presenter.showErrorMessage()
             }
-        )
     }
 }

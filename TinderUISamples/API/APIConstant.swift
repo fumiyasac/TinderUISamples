@@ -17,7 +17,7 @@ import Foundation
 struct APIConstant {
 
     // 楽天レシピ別カテゴリランキングのAPIキー ※各自取得をお願いします。
-    static let API_KEY_RAKUTEN_RECIPE_RANKING = ""
+    static let API_KEY_RAKUTEN_RECIPE_RANKING = "1076447358352508955"
 
     // MARK: - Static Function
 
@@ -38,6 +38,6 @@ struct APIConstant {
             }
         }
 
-        return categories.isEmpty ? "" : categories[Int.createRandom(range: Range(0..<categories.count))]
+        return categories.isEmpty ? "" : categories[Int.createRandom(range: 0..<categories.count)]
     }
 }
