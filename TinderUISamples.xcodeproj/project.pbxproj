@@ -393,7 +393,7 @@
 				TargetAttributes = {
 					DE2188EC2018146F00B0E5C0 = {
 						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1230;
 						ProvisioningStyle = Automatic;
 					};
 					DE2189002018146F00B0E5C0 = {
@@ -700,7 +700,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.just1factory.TinderUISamples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -717,7 +717,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.just1factory.TinderUISamples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
