@@ -16,23 +16,23 @@ class CollectionViewTinderViewController: UIViewController, SFSafariViewControll
     private let tinderCardCollectionViewCellIdentifier = "TinderCardCollectionViewCell"
 
     // ドラッグ可能なイメージビュー
-    fileprivate var draggableImageView: UIImageView!
+    private var draggableImageView: UIImageView!
 
     // カード表示用のUICollectionViewCell格納用のレシピデータ配列
-    fileprivate var recipeDataList: [RecipeModel] = [] {
+    private var recipeDataList: [RecipeModel] = [] {
         didSet {
             self.tinderCardSetCollectionView.reloadData()
         }
     }
 
     // RecipePresenterに設定したプロトコルを適用するための変数
-    fileprivate var presenter: RecipePresenter!
+    private var presenter: RecipePresenter!
 
     // 選択状態の判定用のフラグ
-    fileprivate var isSelectedFlag: Bool = false
+    private var isSelectedFlag: Bool = false
 
     // 追加できるカード枚数の上限値
-    fileprivate let tinderCardSetViewCountLimit: Int = 16
+    private let tinderCardSetViewCountLimit: Int = 16
 
     override func viewDidLoad() {
         super.viewDidLoad()

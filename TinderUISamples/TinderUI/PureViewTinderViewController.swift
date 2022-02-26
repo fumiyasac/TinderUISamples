@@ -62,10 +62,8 @@ class PureViewTinderViewController: UIViewController, SFSafariViewControllerDele
         presenter.getRecipes()
     }
 
-    // MARK: - Fileprivate Function
-
     // 画面上にカードを追加する
-    fileprivate func addTinderCardSetViews(recipes: [RecipeModel]) {
+    private func addTinderCardSetViews(recipes: [RecipeModel]) {
 
         for index in 0..<recipes.count {
             
@@ -101,7 +99,7 @@ class PureViewTinderViewController: UIViewController, SFSafariViewControllerDele
     }
 
     // 画面上にあるカードの山のうち、一番上にあるViewのみを操作できるようにする
-    fileprivate func enableUserInteractionToFirstCardSetView() {
+    private func enableUserInteractionToFirstCardSetView() {
         if !tinderCardSetViewList.isEmpty {
             if let firsttTinderCardSetView = tinderCardSetViewList.first {
                 firsttTinderCardSetView.isUserInteractionEnabled = true
@@ -110,7 +108,7 @@ class PureViewTinderViewController: UIViewController, SFSafariViewControllerDele
     }
 
     // 現在配列に格納されている(画面上にカードの山として表示されている)Viewの拡大縮小を調節する
-    fileprivate func changeScaleToCardSetViews(skipSelectedView: Bool = false) {
+    private func changeScaleToCardSetViews(skipSelectedView: Bool = false) {
 
         // アニメーション関連の定数値
         let duration: TimeInterval = 0.26

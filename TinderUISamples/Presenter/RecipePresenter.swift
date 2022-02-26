@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import SwiftyJSON
 
-protocol RecipePresenterProtocol: class {
+protocol RecipePresenterProtocol: AnyObject {
     func bindRecipes(_ recipes: [RecipeModel])
     func showErrorMessage()
 }

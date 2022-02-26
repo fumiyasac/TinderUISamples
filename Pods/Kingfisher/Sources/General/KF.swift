@@ -28,6 +28,10 @@
 import UIKit
 #endif
 
+#if canImport(CarPlay) && !targetEnvironment(macCatalyst)
+import CarPlay
+#endif
+
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)
 import AppKit
 #endif
@@ -48,7 +52,7 @@ public enum KF {
     /// - Parameter source: The `Source` object defines data information from network or a data provider.
     /// - Returns: A `KF.Builder` for future configuration. After configuring the builder, call `set(to:)`
     ///            to start the image loading.
-    public static func source(_ source: Source) -> KF.Builder {
+    public static func source(_ source: Source?) -> KF.Builder {
         Builder(source: source)
     }
 
@@ -56,8 +60,8 @@ public enum KF {
     /// - Parameter resource: The `Resource` object defines data information like key or URL.
     /// - Returns: A `KF.Builder` for future configuration. After configuring the builder, call `set(to:)`
     ///            to start the image loading.
-    public static func resource(_ resource: Resource) -> KF.Builder {
-        Builder(source: .network(resource))
+    public static func resource(_ resource: Resource?) -> KF.Builder {
+        source(resource?.convertToSource())
     }
 
     /// Creates a builder for a given `URL` and an optional cache key.
@@ -67,16 +71,16 @@ public enum KF {
     ///               If `nil`, the `absoluteString` of `url` is used as the cache key.
     /// - Returns: A `KF.Builder` for future configuration. After configuring the builder, call `set(to:)`
     ///            to start the image loading.
-    public static func url(_ url: URL, cacheKey: String? = nil) -> KF.Builder {
-        Builder(source: .network(ImageResource(downloadURL: url, cacheKey: cacheKey)))
+    public static func url(_ url: URL?, cacheKey: String? = nil) -> KF.Builder {
+        source(url?.convertToSource(overrideCacheKey: cacheKey))
     }
 
     /// Creates a builder for a given `ImageDataProvider`.
     /// - Parameter provider: The `ImageDataProvider` object contains information about the data.
     /// - Returns: A `KF.Builder` for future configuration. After configuring the builder, call `set(to:)`
     ///            to start the image loading.
-    public static func dataProvider(_ provider: ImageDataProvider) -> KF.Builder {
-        Builder(source: .provider(provider))
+    public static func dataProvider(_ provider: ImageDataProvider?) -> KF.Builder {
+        source(provider?.convertToSource())
     }
 
     /// Creates a builder for some given raw data and a cache key.
@@ -85,8 +89,12 @@ public enum KF {
     ///   - cacheKey: The key used to store the downloaded image in cache.
     /// - Returns: A `KF.Builder` for future configuration. After configuring the builder, call `set(to:)`
     ///            to start the image loading.
-    public static func data(_ data: Data, cacheKey: String) -> KF.Builder {
-        Builder(source: .provider(RawImageDataProvider(data: data, cacheKey: cacheKey)))
+    public static func data(_ data: Data?, cacheKey: String) -> KF.Builder {
+        if let data = data {
+            return dataProvider(RawImageDataProvider(data: data, cacheKey: cacheKey))
+        } else {
+            return dataProvider(nil)
+        }
     }
 }
 
@@ -95,7 +103,7 @@ extension KF {
 
     /// A builder class to configure an image retrieving task and set it to a holder view or component.
     public class Builder {
-        private let source: Source
+        private let source: Source?
 
         #if os(watchOS)
         private var placeholder: KFCrossPlatformImage?
@@ -109,7 +117,7 @@ extension KF {
         public let onSuccessDelegate = Delegate<RetrieveImageResult, Void>()
         public let onProgressDelegate = Delegate<(Int64, Int64), Void>()
 
-        init(source: Source) {
+        init(source: Source?) {
             self.source = source
         }
 
@@ -155,7 +163,7 @@ extension KF.Builder {
     /// - Returns: A task represents the image downloading, if initialized.
     ///            This value is `nil` if the image is being loaded from cache.
     @discardableResult
-    public func set(to attachment: NSTextAttachment, attributedView: KFCrossPlatformView) -> DownloadTask? {
+    public func set(to attachment: NSTextAttachment, attributedView: @autoclosure @escaping () -> KFCrossPlatformView) -> DownloadTask? {
         let placeholderImage = placeholder as? KFCrossPlatformImage ?? nil
         return attachment.kf.setImage(
             with: source,
@@ -207,6 +215,29 @@ extension KF.Builder {
         )
     }
     #endif // end of canImport(UIKit)
+    
+    #if canImport(CarPlay) && !targetEnvironment(macCatalyst)
+    
+    /// Builds the image task request and sets it to the image for a list item.
+    /// - Parameters:
+    ///   - listItem: The list item which loads the task and should be set with the image.
+    /// - Returns: A task represents the image downloading, if initialized.
+    ///            This value is `nil` if the image is being loaded from cache.
+    @available(iOS 14.0, *)
+    @discardableResult
+    public func set(to listItem: CPListItem) -> DownloadTask? {
+        let placeholderImage = placeholder as? KFCrossPlatformImage ?? nil
+        return listItem.kf.setImage(
+            with: source,
+            placeholder: placeholderImage,
+            parsedOptions: options,
+            progressBlock: progressBlock,
+            completionHandler: resultHandler
+        )
+        
+    }
+    
+    #endif
 
     #if canImport(AppKit) && !targetEnvironment(macCatalyst)
     /// Builds the image task request and sets it to a button.
@@ -333,14 +364,6 @@ extension KF.Builder {
     }
     #endif
 
-    /// Sets whether the image setting for an image view should happen with transition even when retrieved from cache.
-    /// - Parameter enabled: Enable the force transition or not.
-    /// - Returns: A `KF.Builder` with changes applied.
-    public func forceTransition(_ enabled: Bool = true) -> Self {
-        options.forceTransition = enabled
-        return self
-    }
-
     /// Sets whether keeping the existing image of image view while setting another image to it.
     /// - Parameter enabled: Whether the existing image should be kept.
     /// - Returns: A `KF.Builder` with changes applied.
@@ -367,25 +390,31 @@ extension KF.Builder {
         return self
     }
 
-    /// Sets the image that will be used if an image retrieving task fails.
-    /// - Parameter image: The image that will be used when something goes wrong.
-    /// - Returns: A `KF.Builder` with changes applied.
-    ///
-    /// If set and an image retrieving error occurred Kingfisher will set provided image (or empty)
-    /// in place of requested one. It's useful when you don't want to show placeholder
-    /// during loading time but wants to use some default image when requests will be failed.
-    ///
-    public func onFailureImage(_ image: KFCrossPlatformImage?) -> Self {
-        options.onFailureImage = .some(image)
-        return self
-    }
-
     /// Enables progressive image loading with a specified `ImageProgressive` setting to process the
     /// progressive JPEG data and display it in a progressive way.
     /// - Parameter progressive: The progressive settings which is used while loading.
     /// - Returns: A `KF.Builder` with changes applied.
     public func progressiveJPEG(_ progressive: ImageProgressive? = .default) -> Self {
         options.progressiveJPEG = progressive
+        return self
+    }
+}
+
+// MARK: - Deprecated
+extension KF.Builder {
+    /// Starts the loading process of `self` immediately.
+    ///
+    /// By default, a `KFImage` will not load its source until the `onAppear` is called. This is a lazily loading
+    /// behavior and provides better performance. However, when you refresh the view, the lazy loading also causes a
+    /// flickering since the loading does not happen immediately. Call this method if you want to start the load at once
+    /// could help avoiding the flickering, with some performance trade-off.
+    ///
+    /// - Deprecated: This is not necessary anymore since `@StateObject` is used for holding the image data.
+    /// It does nothing now and please just remove it.
+    ///
+    /// - Returns: The `Self` value with changes applied.
+    @available(*, deprecated, message: "This is not necessary anymore since `@StateObject` is used. It does nothing now and please just remove it.")
+    public func loadImmediately(_ start: Bool = true) -> Self {
         return self
     }
 }

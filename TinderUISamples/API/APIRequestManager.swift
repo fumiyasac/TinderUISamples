@@ -36,7 +36,7 @@ struct APIRequestManager {
     func request() -> Promise<JSON> {
 
         return Promise { seal in
-            AF.request(apiUrl, method: .get, parameters: parameters, encoding: URLEncoding.default).validate().responseJSON { response in
+            AF.request(apiUrl, method: .get, parameters: parameters, encoding: URLEncoding.default).responseData { response in
 
                 switch response.result {
 
